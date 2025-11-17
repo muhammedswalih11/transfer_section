@@ -8,46 +8,23 @@ class TransferTypesBottomSheet extends StatelessWidget {
   const TransferTypesBottomSheet({super.key, this.onTransferTypeSelected});
 
   static final List<Map<String, dynamic>> _transferTypes = [
+    {'name': 'Within Own Account', 'imagePath': 'assets/images/UserSwitch.svg'},
+    {'name': 'Within Dukhan', 'imagePath': 'assets/images/ico.svg'},
+    {'name': 'Within Qatar', 'imagePath': 'assets/images/Flags.svg'},
     {
-      'id': 'within_own_account',
-      'name': 'Within Own Account',
-      'iconPath': 'assets/icons/own_account.svg',
-    },
-    {
-      'id': 'within_dukhan',
-      'name': 'Within Dukhan',
-      'iconPath': 'assets/icons/dukhan.svg',
-    },
-    {
-      'id': 'within_qatar',
-      'name': 'Within Qatar',
-      'iconPath': 'assets/icons/qatar_flag.svg',
-    },
-    {
-      'id': 'cardless_withdrawal',
       'name': 'Cardless Withdrawal',
-      'iconPath': 'assets/icons/cardless.svg',
+      'imagePath': 'assets/images/creditcard.svg',
     },
     {
-      'id': 'international_transfer',
       'name': 'International Transfer',
-      'iconPath': 'assets/icons/globe.svg',
+      'imagePath': 'assets/images/international.svg',
     },
+    {'name': 'Western Union', 'imagePath': 'assets/images/western_union.svg'},
     {
-      'id': 'western_union',
-      'name': 'Western Union',
-      'iconPath': 'assets/icons/western_union.svg',
-    },
-    {
-      'id': 'schedule_transfer',
       'name': 'Schedule Transfer',
-      'iconPath': 'assets/icons/schedule.svg',
+      'imagePath': 'assets/images/CalendarDots.svg',
     },
-    {
-      'id': 'transfer_history',
-      'name': 'Transfer history',
-      'iconPath': 'assets/icons/history.svg',
-    },
+    {'name': 'Transfer history', 'imagePath': 'assets/images/CalendarDots.svg'},
   ];
 
   static void show(
@@ -70,19 +47,12 @@ class TransferTypesBottomSheet extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
 
-    // Dynamic sizes based on screen size
-    final borderRadius = screenWidth * 0.05; // 5% of screen width
-    final horizontalPadding = screenWidth * 0.05; // 5% of screen width
-    final titleFontSize = screenWidth * 0.056; // ~22px on standard screen
-    final dragHandleWidth = screenWidth * 0.106; // ~40px on standard screen
-    final dragHandleHeight = screenHeight * 0.005; // ~4px on standard screen
-
     return Container(
       decoration: BoxDecoration(
         color: DefaultColors.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(borderRadius),
-          topRight: Radius.circular(borderRadius),
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
       ),
       child: Column(
@@ -93,21 +63,13 @@ class TransferTypesBottomSheet extends StatelessWidget {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: screenHeight * 0.01,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             itemCount: _transferTypes.length,
             itemBuilder: (context, index) {
               final transferType = _transferTypes[index];
               return TransferOptionItem(
-                id: transferType['id'] as String,
                 name: transferType['name'] as String,
-                iconPath: transferType['iconPath'] as String,
-                onTap: () {
-                  Navigator.of(context).pop();
-                  onTransferTypeSelected?.call(transferType['id'] as String);
-                },
+                imagePath: transferType['imagePath'] as String,
               );
             },
           ),

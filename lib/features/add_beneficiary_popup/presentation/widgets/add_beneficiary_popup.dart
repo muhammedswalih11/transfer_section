@@ -8,26 +8,10 @@ class AddBeneficiaryBottomSheet extends StatelessWidget {
   const AddBeneficiaryBottomSheet({super.key, this.onBeneficiarySelected});
 
   static final List<Map<String, dynamic>> _beneficiaryTypes = [
-    {
-      'id': 'within_dukhan',
-      'name': 'Within Dukhan',
-      'iconPath': 'assets/icons/dukhan.svg',
-    },
-    {
-      'id': 'within_qatar',
-      'name': 'Within Qatar',
-      'iconPath': 'assets/icons/qatar_flag.svg',
-    },
-    {
-      'id': 'international',
-      'name': 'International',
-      'iconPath': 'assets/icons/globe.svg',
-    },
-    {
-      'id': 'western_union',
-      'name': 'Western Union',
-      'iconPath': 'assets/icons/western_union.svg',
-    },
+    {'name': 'Within Dukhan', 'imagePath': 'assets/images/ico.svg'},
+    {'name': 'Within Qatar', 'imagePath': 'assets/images/Flags.svg'},
+    {'name': 'International', 'imagePath': 'assets/images/international.svg'},
+    {'name': 'Western Union', 'imagePath': 'assets/images/western_union.svg'},
   ];
 
   static void show(
@@ -92,13 +76,8 @@ class AddBeneficiaryBottomSheet extends StatelessWidget {
             itemBuilder: (context, index) {
               final beneficiaryType = _beneficiaryTypes[index];
               return BeneficiaryOptionItem(
-                id: beneficiaryType['id'] as String,
                 name: beneficiaryType['name'] as String,
-                iconPath: beneficiaryType['iconPath'] as String,
-                onTap: () {
-                  Navigator.of(context).pop();
-                  onBeneficiarySelected?.call(beneficiaryType['id'] as String);
-                },
+                imagePath: beneficiaryType['imagePath'] as String,
               );
             },
           ),
