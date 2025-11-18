@@ -112,7 +112,8 @@ class DefaultColors {
   static const Color grayD4 = Color(0xFFDFE4EA);
   static const Color whiteGhost = Color(0xffF8F9FD);
   // static const Color gray101 = Color(0xFFD9E5F0);
-
+  static const Color blue03 = Color.fromARGB(255, 239, 245, 252);
+  static const Color blue04 = Color.fromARGB(255, 231, 242, 255);
   static const Color blue9C = Color(0xFF01559C);
   static const Color blue9D = Color(0xFF00539D);
   static const Color blue9B = Color(0xFF00529B);

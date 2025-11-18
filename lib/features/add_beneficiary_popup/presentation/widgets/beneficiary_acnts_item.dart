@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/utils/colors.dart';
 
-class TransferAccountItem extends StatelessWidget {
+class BeneficiaryOptionItem extends StatelessWidget {
   final String name;
   final String imagePath;
   final VoidCallback? onTap;
 
-  const TransferAccountItem({
+  const BeneficiaryOptionItem({
     super.key,
     required this.name,
     required this.imagePath,

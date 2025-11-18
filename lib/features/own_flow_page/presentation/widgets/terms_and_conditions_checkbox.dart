@@ -4,17 +4,13 @@ import '../../../../core/utils/colors.dart';
 import '../providers/dropdown_provider.dart';
 
 class TermsAndConditionsCheckbox extends ConsumerWidget {
-  final double screenWidth;
-  final double screenHeight;
-
-  const TermsAndConditionsCheckbox({
-    super.key,
-    required this.screenWidth,
-    required this.screenHeight,
-  });
+  const TermsAndConditionsCheckbox({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     final isAccepted = ref.watch(termsAcceptedProvider);
 
     return Row(
@@ -40,14 +36,14 @@ class TermsAndConditionsCheckbox extends ConsumerWidget {
         Expanded(
           child: RichText(
             text: TextSpan(
-              style: TextStyle(
-                fontSize: screenWidth * 0.032,
-                color: DefaultColors.black51,
-              ),
+              style: TextStyle(fontSize: 14, color: DefaultColors.black51),
               children: [
-                const TextSpan(
+                TextSpan(
                   text: 'I accept the ',
-                  style: TextStyle(color: DefaultColors.black),
+                  style: TextStyle(
+                    color: DefaultColors.black,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
                 TextSpan(
                   text: 'Terms and Conditions',

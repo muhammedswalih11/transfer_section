@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/utils/colors.dart';
 
-/// A reusable empty state card that can be configured for different modules.
 class EmptyStateCard extends StatelessWidget {
   final String title;
   final String message;
   final String? actionText;
   final IconData icon;
   final String imageAsset;
+  final IconData? iconButton;
 
   const EmptyStateCard({
     super.key,
@@ -17,14 +17,18 @@ class EmptyStateCard extends StatelessWidget {
     this.actionText,
     this.icon = Icons.info_outline,
     required this.imageAsset,
+    this.iconButton,
   });
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     return Container(
-      width: 380,
-      height: 300,
-      padding: const EdgeInsets.all(18),
+      width: screenWidth,
+      height: screenHeight * 0.3,
+      padding: const EdgeInsets.only(top: 24, bottom: 20),
       decoration: BoxDecoration(
         color: DefaultColors.white,
         borderRadius: BorderRadius.circular(15),
@@ -51,27 +55,44 @@ class EmptyStateCard extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           if (actionText != null) ...[
-            const SizedBox(height: 24),
+            const SizedBox(height: 28),
             OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
+                backgroundColor: DefaultColors.blue03,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32,
                   vertical: 12,
                 ),
-                side: const BorderSide(color: DefaultColors.blue9D, width: 1.5),
+                side: BorderSide.none,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: Text(
-                actionText!,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: DefaultColors.blue9D,
-                ),
-              ),
+              child: iconButton != null
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(iconButton, color: DefaultColors.blue9D),
+                        const SizedBox(width: 8),
+                        Text(
+                          actionText!,
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            color: DefaultColors.blue9D,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      actionText!,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: DefaultColors.blue9D,
+                      ),
+                    ),
             ),
           ],
         ],
@@ -92,7 +113,6 @@ class RecentTransactionsCard extends StatelessWidget {
       title: 'No Transactions Yet',
       message: 'All your first transactions will appear here.',
       actionText: 'Make Transaction',
-      icon: Icons.add,
     );
   }
 }
@@ -108,8 +128,8 @@ class BeneficariesCard extends StatelessWidget {
 
       title: 'No Beneficiaries Added',
       message: 'All your Beneficiaries will appear here.',
-      actionText: 'Add Beneficiary',
-      icon: Icons.add,
+      actionText: 'Add Beneficiaries',
+      iconButton: Icons.add,
     );
   }
 }

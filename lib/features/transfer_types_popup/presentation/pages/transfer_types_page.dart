@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/transfer_types_bottom_sheet.dart';
+import '../../../../core/utils/colors.dart';
+import '../widgets/transfers_type_popup.dart';
 
 class TransferTypesPage extends StatefulWidget {
   const TransferTypesPage({super.key});
@@ -12,7 +13,7 @@ class _TransferTypesPageState extends State<TransferTypesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.5),
+      backgroundColor: DefaultColors.black.withOpacity(0.5),
       body: GestureDetector(
         onTap: () => Navigator.of(context).pop(),
         child: Stack(
@@ -21,10 +22,7 @@ class _TransferTypesPageState extends State<TransferTypesPage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: TransferTypesBottomSheet(
-                onTransferTypeSelected: (transferType) {
-                  // Handle selection if needed
-                  Navigator.of(context).pop();
-                },
+                onTransferTypeSelected: (transferType) {},
               ),
             ),
           ],

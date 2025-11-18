@@ -2,16 +2,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/colors.dart';
 
 class TransferButton extends StatelessWidget {
-  final double screenWidth;
-  final double screenHeight;
   final VoidCallback? onPressed;
 
-  const TransferButton({
-    super.key,
-    required this.screenWidth,
-    required this.screenHeight,
-    this.onPressed,
-  });
+  const TransferButton({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +13,11 @@ class TransferButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: DefaultColors.skyBlue,
+          backgroundColor: const Color.fromARGB(255, 188, 205, 214),
           foregroundColor: DefaultColors.black51,
-          padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+          padding: EdgeInsets.symmetric(vertical: 20),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(screenWidth * 0.025),
+            borderRadius: BorderRadius.circular(12),
           ),
           elevation: 0,
         ),

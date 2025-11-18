@@ -3,8 +3,7 @@ import '../../../../core/utils/colors.dart';
 
 class SelectAccountField extends StatelessWidget {
   final String label;
-  final double screenWidth;
-  final double screenHeight;
+
   final bool isOpen;
   final List<String> options;
   final VoidCallback onTap;
@@ -14,8 +13,7 @@ class SelectAccountField extends StatelessWidget {
   const SelectAccountField({
     super.key,
     required this.label,
-    required this.screenWidth,
-    required this.screenHeight,
+
     required this.isOpen,
     required this.options,
     required this.onTap,
@@ -25,15 +23,18 @@ class SelectAccountField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           height: screenHeight * 0.065,
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+          padding: EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
             color: DefaultColors.white,
-            borderRadius: BorderRadius.circular(screenWidth * 0.025),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: DefaultColors.grayE5, width: 1),
           ),
           child: Row(
@@ -43,8 +44,9 @@ class SelectAccountField extends StatelessWidget {
                 child: Text(
                   selectedValue ?? label,
                   style: TextStyle(
-                    fontSize: screenWidth * 0.038,
-                    color: DefaultColors.black51,
+                    fontSize: 17,
+                    color: DefaultColors.gray7D,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -59,43 +61,6 @@ class SelectAccountField extends StatelessWidget {
             ],
           ),
         ),
-        // if (isOpen)
-        //   Container(
-        //     margin: EdgeInsets.only(top: screenHeight * 0.005),
-        //     decoration: BoxDecoration(
-        //       color: DefaultColors.white,
-        //       borderRadius: BorderRadius.circular(screenWidth * 0.025),
-        //       border: Border.all(color: DefaultColors.grayE5, width: 1),
-        //     ),
-        //     child: Column(
-        //       children: options.map((option) {
-        //         return InkWell(
-        //           onTap: () {
-        //             onOptionSelected(option);
-        //           },
-        //           child: Padding(
-        //             padding: EdgeInsets.symmetric(
-        //               horizontal: screenWidth * 0.04,
-        //               vertical: screenHeight * 0.018,
-        //             ),
-        //             child: Row(
-        //               children: [
-        //                 Expanded(
-        //                   child: Text(
-        //                     option,
-        //                     style: TextStyle(
-        //                       fontSize: screenWidth * 0.038,
-        //                       color: DefaultColors.black51,
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ],
-        //             ),
-        //           ),
-        //         );
-        //       }).toList(),
-        //     ),
-        //   ),
       ],
     );
   }

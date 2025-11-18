@@ -43,11 +43,10 @@ class TransferTypesBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final screenWidth = mediaQuery.size.width;
-    final screenHeight = mediaQuery.size.height;
+    MediaQuery.of(context);
 
     return Container(
+      padding: EdgeInsets.only(top: 12),
       decoration: BoxDecoration(
         color: DefaultColors.white,
         borderRadius: BorderRadius.only(
@@ -58,22 +57,25 @@ class TransferTypesBottomSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: screenHeight * 0.01),
-          // Transfer options list
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 6),
             itemCount: _transferTypes.length,
             itemBuilder: (context, index) {
               final transferType = _transferTypes[index];
-              return TransferOptionItem(
+              return TransferAccountItem(
                 name: transferType['name'] as String,
                 imagePath: transferType['imagePath'] as String,
+                onTap: () {
+                  if (onTransferTypeSelected != null) {
+                    onTransferTypeSelected!(transferType['name']);
+                  }
+                },
               );
             },
           ),
-          SizedBox(height: screenHeight * 0.02),
+          SizedBox(height: 12),
         ],
       ),
     );

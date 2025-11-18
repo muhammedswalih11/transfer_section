@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../../core/utils/colors.dart';
 
 class AmountFiled extends StatelessWidget {
-  final double screenWidth;
-  final double screenHeight;
-  const AmountFiled({
-    super.key,
-    required this.screenWidth,
-    required this.screenHeight,
-  });
+  const AmountFiled({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     return Row(
       children: [
         Expanded(
           child: Container(
             height: screenHeight * 0.065,
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(
               color: DefaultColors.white,
-              borderRadius: BorderRadius.circular(screenWidth * 0.025),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(color: DefaultColors.grayE5, width: 1),
             ),
             child: Row(
@@ -31,42 +29,35 @@ class AmountFiled extends StatelessWidget {
                       border: InputBorder.none,
                       hintText: 'Amount',
                       hintStyle: TextStyle(
-                        fontSize: screenWidth * 0.038,
-                        color: DefaultColors.black51,
+                        fontSize: 17,
+                        color: DefaultColors.gray7D,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     style: TextStyle(
-                      fontSize: screenWidth * 0.038,
+                      fontSize: 17,
                       color: DefaultColors.black51,
                     ),
                     keyboardType: TextInputType.number,
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.02,
-                    vertical: screenHeight * 0.006,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                   decoration: BoxDecoration(
                     color: DefaultColors.blue9D.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: DefaultColors.blue9D, width: 1),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.flag_circle,
-                        size: screenWidth * 0.045,
-                        color: DefaultColors.blue9D,
-                      ),
-                      SizedBox(width: screenWidth * 0.01),
+                      SvgPicture.asset('assets/images/Flags.svg'),
+                      SizedBox(width: 4),
                       Text(
                         'QAR',
                         style: TextStyle(
-                          fontSize: screenWidth * 0.032,
-                          fontWeight: FontWeight.w600,
-                          color: DefaultColors.blue9D,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: DefaultColors.black,
                         ),
                       ),
                     ],
@@ -76,22 +67,22 @@ class AmountFiled extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: screenWidth * 0.03),
+        SizedBox(width: 22),
         SizedBox(
-          height: screenHeight * 0.065,
+          height: screenHeight * 0.040,
           child: ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: DefaultColors.blue_0,
               foregroundColor: DefaultColors.white,
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+              padding: EdgeInsets.symmetric(horizontal: 26),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(screenWidth * 0.025),
+                borderRadius: BorderRadius.circular(18),
               ),
               elevation: 0,
             ),
             child: const Text(
-              'Limit',
+              'Limits',
               style: TextStyle(color: DefaultColors.black),
             ),
           ),

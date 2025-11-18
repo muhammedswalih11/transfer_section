@@ -24,26 +24,23 @@ class WithinOwnAccountPage extends ConsumerWidget {
     final selectedToAccount = ref.watch(selectedToAccountProvider);
 
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              const Color.fromARGB(255, 7, 110, 141),
-              DefaultColors.white,
-            ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(top: 35),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color.fromARGB(255, 7, 110, 141),
+                DefaultColors.white,
+              ],
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.04,
-                  vertical: screenHeight * 0.02,
-                ),
-                child: Row(
+          child: SafeArea(
+            child: Column(
+              children: [
+                Row(
                   children: [
                     IconButton(
                       icon: const Icon(
@@ -55,99 +52,72 @@ class WithinOwnAccountPage extends ConsumerWidget {
                     Text(
                       'Within Own Account',
                       style: TextStyle(
-                        fontSize: screenWidth * 0.048,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: DefaultColors.white,
                       ),
                     ),
                   ],
                 ),
-              ),
-              Expanded(
-                child: Container(
+                SizedBox(height: 24),
+                Container(
                   width: screenWidth,
-                  padding: EdgeInsets.only(top: 18),
+                  padding: EdgeInsets.only(top: 32, left: 16, right: 16),
                   decoration: BoxDecoration(
                     color: DefaultColors.white,
-                    borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                    borderRadius: BorderRadius.circular(28),
                   ),
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.all(screenWidth * 0.05),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SelectAccountField(
-                          label: 'From Account',
-                          screenWidth: screenWidth,
-                          screenHeight: screenHeight,
-                          isOpen: isFromAccountOpen,
-                          options: accountOptions,
-                          onTap: () {
-                            ref
-                                    .read(fromAccountDropdownProvider.notifier)
-                                    .state =
-                                !isFromAccountOpen;
-                          },
-                          onOptionSelected: (option) {
-                            ref
-                                    .read(selectedFromAccountProvider.notifier)
-                                    .state =
-                                option;
-                            ref
-                                    .read(fromAccountDropdownProvider.notifier)
-                                    .state =
-                                false;
-                          },
-                          selectedValue: selectedFromAccount,
-                        ),
-                        SizedBox(height: screenHeight * 0.025),
-                        SelectAccountField(
-                          label: 'To Account',
-                          screenWidth: screenWidth,
-                          screenHeight: screenHeight,
-                          isOpen: isToAccountOpen,
-                          options: accountOptions,
-                          onTap: () {
-                            ref.read(toAccountDropdownProvider.notifier).state =
-                                !isToAccountOpen;
-                          },
-                          onOptionSelected: (option) {
-                            ref.read(selectedToAccountProvider.notifier).state =
-                                option;
-                            ref.read(toAccountDropdownProvider.notifier).state =
-                                false;
-                          },
-                          selectedValue: selectedToAccount,
-                        ),
-                        SizedBox(height: screenHeight * 0.025),
-                        AmountFiled(
-                          screenWidth: screenWidth,
-                          screenHeight: screenHeight,
-                        ),
-                        SizedBox(height: screenHeight * 0.025),
-                        RemarksField(
-                          screenWidth: screenWidth,
-                          screenHeight: screenHeight,
-                        ),
-                        SizedBox(height: screenHeight * 0.35),
-                        TermsAndConditionsCheckbox(
-                          screenWidth: screenWidth,
-                          screenHeight: screenHeight,
-                        ),
-                        SizedBox(height: screenHeight * 0.02),
-                        TransferButton(
-                          screenWidth: screenWidth,
-                          screenHeight: screenHeight,
-                          onPressed: () {
-                            // Transfer action
-                          },
-                        ),
-                      ],
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SelectAccountField(
+                        label: 'From Account',
+
+                        isOpen: isFromAccountOpen,
+                        options: accountOptions,
+                        onTap: () {
+                          ref.read(fromAccountDropdownProvider.notifier).state =
+                              !isFromAccountOpen;
+                        },
+                        onOptionSelected: (option) {
+                          ref.read(selectedFromAccountProvider.notifier).state =
+                              option;
+                          ref.read(fromAccountDropdownProvider.notifier).state =
+                              false;
+                        },
+                        selectedValue: selectedFromAccount,
+                      ),
+                      SizedBox(height: 20),
+                      SelectAccountField(
+                        label: 'To Account',
+
+                        isOpen: isToAccountOpen,
+                        options: accountOptions,
+                        onTap: () {
+                          ref.read(toAccountDropdownProvider.notifier).state =
+                              !isToAccountOpen;
+                        },
+                        onOptionSelected: (option) {
+                          ref.read(selectedToAccountProvider.notifier).state =
+                              option;
+                          ref.read(toAccountDropdownProvider.notifier).state =
+                              false;
+                        },
+                        selectedValue: selectedToAccount,
+                      ),
+                      SizedBox(height: 20),
+                      AmountFiled(),
+                      SizedBox(height: 20),
+                      RemarksField(),
+                      SizedBox(height: screenHeight * 0.32),
+                      TermsAndConditionsCheckbox(),
+                      SizedBox(height: screenHeight * 0.02),
+                      TransferButton(onPressed: () {}),
+                    ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
