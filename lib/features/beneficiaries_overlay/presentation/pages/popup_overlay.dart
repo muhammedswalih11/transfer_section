@@ -18,10 +18,26 @@ class PopupLauncherPage extends StatelessWidget {
         child: Stack(
           children: [
             const SizedBox.expand(),
-
             Align(
               alignment: Alignment.bottomCenter,
-              child: PopupBottomSheet(type: type),
+              child: DraggableScrollableSheet(
+                initialChildSize: 0.45,
+                minChildSize: 0.45,
+                maxChildSize: 0.95,
+                builder: (context, scrollController) => Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(22),
+                    ),
+                  ),
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+
+                    child: PopupBottomSheet(type: type),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
