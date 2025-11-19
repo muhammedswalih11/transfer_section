@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transfer_section/features/own_flow_page/presentation/widgets/amount_filed.dart';
+import 'package:transfer_section/features/own_flow_page/presentation/widgets/bottom_button.dart';
 import '../../../../core/utils/colors.dart';
 import '../providers/dropdown_provider.dart';
 import '../widgets/select_account_field.dart';
 import '../widgets/remarks_field.dart';
 import '../widgets/terms_and_conditions_checkbox.dart';
-import '../widgets/transfer_button.dart';
 
 class WithinOwnAccountPage extends ConsumerWidget {
   const WithinOwnAccountPage({super.key});
@@ -24,43 +24,43 @@ class WithinOwnAccountPage extends ConsumerWidget {
     final selectedToAccount = ref.watch(selectedToAccountProvider);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(top: 35),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                const Color.fromARGB(255, 7, 110, 141),
-                DefaultColors.white,
-              ],
-            ),
+      body: Container(
+        padding: EdgeInsets.only(top: 35),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color.fromARGB(255, 7, 110, 141),
+              DefaultColors.white,
+            ],
           ),
-          child: SafeArea(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: DefaultColors.white,
-                      ),
-                      onPressed: () => Navigator.of(context).pop(),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: DefaultColors.white,
                     ),
-                    Text(
-                      'Within Own Account',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: DefaultColors.white,
-                      ),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  Text(
+                    'Within Own Account',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: DefaultColors.white,
                     ),
-                  ],
-                ),
-                SizedBox(height: 24),
-                Container(
+                  ),
+                ],
+              ),
+              SizedBox(height: 24),
+              Expanded(
+                child: Container(
                   width: screenWidth,
                   padding: EdgeInsets.only(top: 32, left: 16, right: 16),
                   decoration: BoxDecoration(
@@ -109,15 +109,32 @@ class WithinOwnAccountPage extends ConsumerWidget {
                       AmountFiled(),
                       SizedBox(height: 20),
                       RemarksField(),
-                      SizedBox(height: screenHeight * 0.32),
+                      Spacer(),
                       TermsAndConditionsCheckbox(),
                       SizedBox(height: screenHeight * 0.02),
-                      TransferButton(onPressed: () {}),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: DefaultColors.skyBlue,
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 0,
+                          ),
+                          child: Text(
+                            'Transfer',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

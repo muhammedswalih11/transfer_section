@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/colors.dart';
 
-class TransferButton extends StatelessWidget {
+class BottomButton extends StatelessWidget {
   final VoidCallback? onPressed;
+  final Color buttonColor;
+  final Color textColor;
+  final String buttonText;
 
-  const TransferButton({super.key, this.onPressed});
+  const BottomButton({
+    super.key,
+    this.onPressed,
+    required this.buttonColor,
+    required this.textColor,
+    required this.buttonText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +21,7 @@ class TransferButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 188, 205, 214),
-          foregroundColor: DefaultColors.black51,
+          backgroundColor: buttonColor,
           padding: EdgeInsets.symmetric(vertical: 20),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -22,11 +29,11 @@ class TransferButton extends StatelessWidget {
           elevation: 0,
         ),
         child: Text(
-          'Transfer',
+          buttonText,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: DefaultColors.white,
+            color: textColor,
           ),
         ),
       ),
