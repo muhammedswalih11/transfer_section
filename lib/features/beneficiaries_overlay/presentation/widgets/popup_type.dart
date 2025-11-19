@@ -1,1 +1,0 @@
-enum PopupType { beneficiary, transfer }
