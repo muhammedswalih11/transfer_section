@@ -81,28 +81,31 @@ class PopupBottomSheet extends StatelessWidget {
           const SizedBox(height: 6),
 
           ...currentList.map(
-            (item) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 28,
-                    backgroundColor: DefaultColors.blue_0,
-                    child: SvgPicture.asset(
-                      item["icon"]!,
-                      width: 26,
-                      height: 26,
+            (item) => GestureDetector(
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 28,
+                      backgroundColor: DefaultColors.blue_0,
+                      child: SvgPicture.asset(
+                        item["icon"]!,
+                        width: 26,
+                        height: 26,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Text(
-                    item["name"]!,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                    const SizedBox(width: 16),
+                    Text(
+                      item["name"]!,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
