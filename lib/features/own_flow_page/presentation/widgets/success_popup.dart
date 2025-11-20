@@ -71,7 +71,7 @@ class TransferSuccessPopup extends StatelessWidget {
                 _value(data["toAccount"]!),
                 SizedBox(height: 24),
                 _label("Amount"),
-                _value(data["amount"]!),
+                _value("${data["amount"]!} QAR"),
                 SizedBox(height: 24),
 
                 _label("Reference number"),
