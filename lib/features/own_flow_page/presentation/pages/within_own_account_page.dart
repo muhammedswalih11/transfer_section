@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transfer_section/features/own_flow_page/presentation/widgets/amount_filed.dart';
-import 'package:transfer_section/features/own_flow_page/presentation/widgets/bottom_button.dart';
 import '../../../../core/utils/colors.dart';
 import '../providers/dropdown_provider.dart';
 import '../widgets/select_account_field.dart';
@@ -130,6 +129,7 @@ class WithinOwnAccountPage extends ConsumerWidget {
                           ),
                         ),
                       ),
+                      SizedBox(height: 10),
                     ],
                   ),
                 ),

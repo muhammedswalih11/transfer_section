@@ -84,10 +84,21 @@ class TransferSuccessPopup extends StatelessWidget {
                         Clipboard.setData(
                           ClipboardData(text: data["reference"]!),
                         );
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("Copied to clipboard"),
+                            content: Text(
+                              "Copied to clipboard",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+
                             duration: Duration(seconds: 1),
+                            behavior: SnackBarBehavior.floating,
+                            margin: const EdgeInsets.all(16),
                           ),
                         );
                       },
@@ -143,6 +154,7 @@ class TransferSuccessPopup extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height: 10),
         ],
       ),
     );

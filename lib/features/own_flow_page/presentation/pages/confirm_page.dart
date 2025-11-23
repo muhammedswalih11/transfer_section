@@ -25,7 +25,6 @@ class _ConfirmPageState extends State<ConfirmPage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
-    final screenHeight = mediaQuery.size.height;
 
     return Scaffold(
       body: Container(
@@ -129,6 +128,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                           ),
                         ),
                       ),
+                      SizedBox(height: 10),
                     ],
                   ),
                 ),
