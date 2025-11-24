@@ -7,10 +7,14 @@ final fromAccountDropdownProvider = StateProvider<bool>((ref) => false);
 final toAccountDropdownProvider = StateProvider<bool>((ref) => false);
 
 /// Provider for selected From Account value
-final selectedFromAccountProvider = StateProvider<String?>((ref) => null);
+final selectedFromAccountProvider = StateProvider<Map<String, String>?>(
+  (ref) => null,
+);
 
 /// Provider for selected To Account value
-final selectedToAccountProvider = StateProvider<String?>((ref) => null);
+final selectedToAccountProvider = StateProvider<Map<String, String>?>(
+  (ref) => null,
+);
 
 /// Provider for account options list
 final accountOptionsProvider = StateProvider<List<String>>((ref) => []);

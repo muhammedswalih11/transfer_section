@@ -8,7 +8,8 @@ class SelectAccountField extends StatelessWidget {
   final List<String> options;
   final VoidCallback onTap;
   final Function(String) onOptionSelected;
-  final String? selectedValue;
+  // final String? selectedValue;
+  final Map<String, String>? selectedValue;
 
   const SelectAccountField({
     super.key,
@@ -42,7 +43,10 @@ class SelectAccountField extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  selectedValue ?? label,
+                  // selectedValue ?? label,
+                  selectedValue != null
+                      ? '${selectedValue!['title']} (${selectedValue!['accnumber']})'
+                      : label,
                   style: TextStyle(
                     fontSize: 17,
                     color: DefaultColors.gray7D,

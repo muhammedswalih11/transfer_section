@@ -67,26 +67,6 @@ class AmountFiled extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 22),
-        SizedBox(
-          height: screenHeight * 0.040,
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: DefaultColors.blue_0,
-              foregroundColor: DefaultColors.white,
-              padding: EdgeInsets.symmetric(horizontal: 26),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
-              ),
-              elevation: 0,
-            ),
-            child: const Text(
-              'Limits',
-              style: TextStyle(color: DefaultColors.black),
-            ),
-          ),
-        ),
       ],
     );
   }
