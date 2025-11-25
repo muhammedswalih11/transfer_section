@@ -72,16 +72,14 @@ class _ConfirmPageState extends State<ConfirmPage> {
                     borderRadius: BorderRadius.circular(28),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SvgPicture.asset('assets/images/Add (1).svg', width: 84),
-                      SizedBox(height: 20),
+                      SizedBox(height: 18),
                       Text(
-                        'Please confirm the details',
+                        'Make sure the below transfer details are correct',
                         style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: DefaultColors.black,
+                          fontSize: 16,
+                          color: DefaultColors.grayBase,
                         ),
                       ),
                       SizedBox(height: 30),

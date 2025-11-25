@@ -29,7 +29,7 @@ class RemarksField extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        style: TextStyle(fontSize: 17, color: DefaultColors.gray7D),
+        style: TextStyle(fontSize: 17, color: DefaultColors.black),
       ),
     );
   }

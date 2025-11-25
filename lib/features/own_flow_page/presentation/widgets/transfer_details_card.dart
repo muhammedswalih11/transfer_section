@@ -20,27 +20,49 @@ class TransferDetailsCard extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
     return Container(
       width: screenWidth,
-      padding: const EdgeInsets.all(20),
+
       decoration: BoxDecoration(
-        color: DefaultColors.blue03,
+        color: DefaultColors.white,
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: DefaultColors.grayE4, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          label("From account"),
-          value(fromAccount),
-          const SizedBox(height: 24),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [label("From account"), value(fromAccount)],
+            ),
+          ),
 
-          label("To account"),
-          value(toAccount),
-          const SizedBox(height: 24),
-          label("Amount"),
-          value(amount),
-          const SizedBox(height: 24),
+          divider(),
 
-          label("Remarks"),
-          value(remarks),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [label("To account"), value(toAccount)],
+            ),
+          ),
+
+          divider(),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [label("Amount"), value(amount)],
+            ),
+          ),
+          divider(),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [label("Remarks"), value(remarks)],
+            ),
+          ),
         ],
       ),
     );
@@ -51,7 +73,7 @@ class TransferDetailsCard extends StatelessWidget {
       text,
       style: const TextStyle(
         fontSize: 14,
-        color: DefaultColors.black,
+        color: DefaultColors.grayBase,
         fontWeight: FontWeight.w500,
       ),
     );
@@ -67,4 +89,12 @@ class TransferDetailsCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget divider() {
+  return Container(
+    height: 1,
+    width: double.infinity,
+    color: DefaultColors.grayE4,
+  );
 }

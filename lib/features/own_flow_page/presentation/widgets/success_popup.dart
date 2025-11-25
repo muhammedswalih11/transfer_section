@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:transfer_section/core/utils/colors.dart';
+import 'package:transfer_section/features/own_flow_page/presentation/widgets/transfer_details_card.dart';
 
 class TransferSuccessPopup extends StatelessWidget {
   final Map<String, String> data;
@@ -47,7 +48,7 @@ class TransferSuccessPopup extends StatelessWidget {
             _formattedDateTime(),
             style: const TextStyle(
               fontSize: 14,
-              color: DefaultColors.black,
+              color: DefaultColors.grayBase,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -55,60 +56,99 @@ class TransferSuccessPopup extends StatelessWidget {
           SizedBox(height: 20),
 
           Container(
-            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: DefaultColors.blue03,
+              color: DefaultColors.white,
               borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: DefaultColors.grayE4, width: 1),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _label("From account"),
-                _value(data["fromAccount"]!),
-                SizedBox(height: 24),
-
-                _label("To account"),
-                _value(data["toAccount"]!),
-                SizedBox(height: 24),
-                _label("Amount"),
-                _value("${data["amount"]!} QAR"),
-                SizedBox(height: 24),
-
-                _label("Reference number"),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _value(data["reference"]!),
-                    GestureDetector(
-                      onTap: () {
-                        Clipboard.setData(
-                          ClipboardData(text: data["reference"]!),
-                        );
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              "Copied to clipboard",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-
-                            duration: Duration(seconds: 1),
-                            behavior: SnackBarBehavior.floating,
-                            margin: const EdgeInsets.all(16),
-                          ),
-                        );
-                      },
-                      child: const Icon(Icons.copy, size: 20),
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _label("From account"),
+                      _value(data["fromAccount"]!),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 24),
-                _label("Remarks"),
-                _value(data["remarks"]!),
+                divider(),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _label("To account"),
+                      _value(data["toAccount"]!),
+                    ],
+                  ),
+                ),
+                divider(),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _label("Amount"),
+                      _value("${data["amount"]!} QAR"),
+                    ],
+                  ),
+                ),
+                divider(),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _label("Reference number"),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _value(data["reference"]!),
+                          GestureDetector(
+                            onTap: () {
+                              Clipboard.setData(
+                                ClipboardData(text: data["reference"]!),
+                              );
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "Copied to clipboard",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+
+                                  duration: Duration(seconds: 1),
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: const EdgeInsets.all(16),
+                                ),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.copy,
+                              size: 20,
+                              color: DefaultColors.blue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                divider(),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [_label("Remarks"), _value(data["remarks"]!)],
+                  ),
+                ),
               ],
             ),
           ),
@@ -117,15 +157,16 @@ class TransferSuccessPopup extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('assets/images/Vector.svg', width: 20),
+              SvgPicture.asset(
+                'assets/images/Vector.svg',
+                width: 20,
+                color: DefaultColors.blue,
+              ),
               TextButton(
                 onPressed: () {},
                 child: Text(
                   'Share',
-                  style: TextStyle(
-                    color: DefaultColors.blue_150_db,
-                    fontSize: 18,
-                  ),
+                  style: TextStyle(color: DefaultColors.blue, fontSize: 18),
                 ),
               ),
             ],
@@ -164,7 +205,7 @@ class TransferSuccessPopup extends StatelessWidget {
     text,
     style: const TextStyle(
       fontSize: 14,
-      color: DefaultColors.black,
+      color: DefaultColors.grayBase,
       fontWeight: FontWeight.w500,
     ),
   );

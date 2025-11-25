@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transfer_section/features/own_flow_page/presentation/widgets/account_picker_sheet.dart';
 import 'package:transfer_section/features/own_flow_page/presentation/widgets/amount_filed.dart';
+import 'package:transfer_section/features/own_flow_page/presentation/widgets/info_note.dart';
 import 'package:transfer_section/features/own_flow_page/presentation/widgets/limit_bottomsheet.dart'
     show LimitsBottomSheet;
 import 'package:transfer_section/features/own_flow_page/presentation/widgets/limit_info-tile.dart';
@@ -128,7 +129,7 @@ class WithinOwnAccountPage extends ConsumerWidget {
                             ),
                           ),
                         ],
-                        SizedBox(height: 20),
+                        SizedBox(height: screenHeight * 0.035),
                         SelectAccountField(
                           label: 'To Account',
 
@@ -167,7 +168,7 @@ class WithinOwnAccountPage extends ConsumerWidget {
                           },
                           onOptionSelected: (_) {},
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: screenHeight * 0.035),
                         AmountFiled(),
                         SizedBox(height: 5),
                         LimitInfoTile(
@@ -184,11 +185,12 @@ class WithinOwnAccountPage extends ConsumerWidget {
                             );
                           },
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: screenHeight * 0.035),
                         RemarksField(),
-                        SizedBox(height: screenHeight * 0.30),
-                        TermsAndConditionsCheckbox(),
-                        SizedBox(height: screenHeight * 0.02),
+                        SizedBox(height: screenHeight * 0.035),
+                        InfoNote(),
+
+                        SizedBox(height: screenHeight * 0.14),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
