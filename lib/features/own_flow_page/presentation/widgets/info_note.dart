@@ -11,7 +11,12 @@ class InfoNote extends StatelessWidget {
     final screenHeight = mediaQuery.size.height;
     return Container(
       width: screenWidth,
-      padding: EdgeInsets.only(top: 12, bottom: 12, left: 12, right: 12),
+      padding: EdgeInsets.only(
+        top: screenHeight * 0.010,
+        bottom: screenHeight * 0.010,
+        left: screenWidth * 0.025,
+        right: screenWidth * 0.050,
+      ),
       decoration: BoxDecoration(
         color: DefaultColors.blue_0,
         borderRadius: BorderRadius.circular(12),
@@ -19,28 +24,36 @@ class InfoNote extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.info_outline, color: DefaultColors.blue, size: 18),
-          SizedBox(width: 5),
-          Column(
-            children: [
-              Text(
-                'Notes : Withdrawal codes expire after 24 hrs from\nthe time of request',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: DefaultColors.black,
-                  fontWeight: FontWeight.w500,
+          Icon(
+            Icons.info_outline,
+            color: DefaultColors.blue,
+            size: screenWidth * 0.04,
+          ),
+          SizedBox(width: screenWidth * 0.018),
+          Expanded(
+            child: Column(
+              children: [
+                Text(
+                  'Notes : Withdrawal codes expire after 24 hrs from the time of request',
+
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.0325,
+                    color: DefaultColors.black,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              ),
-              SizedBox(height: 6),
-              Text(
-                'Notes : Withdrawal codes expire after 24 hrs from\nthe time of request',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: DefaultColors.black,
-                  fontWeight: FontWeight.w500,
+                SizedBox(height: screenHeight * 0.010),
+                Text(
+                  'Notes : Withdrawal codes expire after 24 hrs from the time of request',
+
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.0325,
+                    color: DefaultColors.black,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

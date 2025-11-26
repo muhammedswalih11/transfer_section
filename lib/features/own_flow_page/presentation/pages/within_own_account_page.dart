@@ -62,156 +62,174 @@ class WithinOwnAccountPage extends ConsumerWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 24),
+              SizedBox(height: screenHeight * 0.025),
               Expanded(
                 child: Container(
                   width: screenWidth,
-                  padding: EdgeInsets.only(top: 32, left: 16, right: 16),
+                  padding: EdgeInsets.only(
+                    top: screenHeight * 0.050,
+                    left: screenWidth * 0.040,
+                    right: screenWidth * 0.040,
+                  ),
                   decoration: BoxDecoration(
                     color: DefaultColors.white,
                     borderRadius: BorderRadius.circular(28),
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SelectAccountField(
-                          label: 'From Account',
+                  child: Column(
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SelectAccountField(
+                              label: 'From Account',
 
-                          isOpen: isFromAccountOpen,
-                          options: accountOptions,
-                          selectedValue: selectedFromAccount,
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(25),
-                                ),
-                              ),
-                              builder: (_) {
-                                return AccountPickerSheet(
-                                  disabledAccountId: selectedToAccount?['id'],
+                              isOpen: isFromAccountOpen,
+                              options: accountOptions,
+                              selectedValue: selectedFromAccount,
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(25),
+                                    ),
+                                  ),
+                                  builder: (_) {
+                                    return AccountPickerSheet(
+                                      disabledAccountId:
+                                          selectedToAccount?['id'],
 
-                                  title: "Select From Account",
-                                  subtitle:
-                                      "Choose the account you'd like to transfer from",
-                                  onSelected: (acct) {
-                                    ref
-                                            .read(
-                                              selectedFromAccountProvider
-                                                  .notifier,
-                                            )
-                                            .state =
-                                        acct;
+                                      title: "Select From Account",
+                                      subtitle:
+                                          "Choose the account you'd like to transfer from",
+                                      onSelected: (acct) {
+                                        ref
+                                                .read(
+                                                  selectedFromAccountProvider
+                                                      .notifier,
+                                                )
+                                                .state =
+                                            acct;
 
-                                    Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      },
+                                    );
                                   },
                                 );
                               },
-                            );
-                          },
 
-                          onOptionSelected: (_) {},
-                        ),
-                        if (selectedFromAccount != null) ...[
-                          SizedBox(height: 8),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 12),
-                            child: Text(
-                              selectedFromAccount['balance'] ?? '',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
+                              onOptionSelected: (_) {},
                             ),
-                          ),
-                        ],
-                        SizedBox(height: screenHeight * 0.035),
-                        SelectAccountField(
-                          label: 'To Account',
 
-                          isOpen: isToAccountOpen,
-                          options: accountOptions,
-                          selectedValue: selectedToAccount,
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(25),
-                                ),
-                              ),
-                              builder: (_) {
-                                return AccountPickerSheet(
-                                  disabledAccountId: selectedFromAccount?['id'],
+                            SizedBox(
+                              height: screenHeight * 0.016,
+                              child: selectedFromAccount == null
+                                  ? null
+                                  : Padding(
+                                      padding: EdgeInsets.only(
+                                        left: screenWidth * 0.03,
+                                      ),
+                                      child: Text(
+                                        selectedFromAccount['balance'] ?? '',
+                                        style: TextStyle(
+                                          fontSize: screenWidth * 0.030,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                            ),
+                            SizedBox(height: screenHeight * 0.024),
+                            SelectAccountField(
+                              label: 'To Account',
 
-                                  title: "Select From Account",
-                                  subtitle:
-                                      "Choose the account you'd like to transfer to",
-                                  onSelected: (acct) {
-                                    ref
-                                            .read(
-                                              selectedToAccountProvider
-                                                  .notifier,
-                                            )
-                                            .state =
-                                        acct;
-                                    Navigator.pop(context);
+                              isOpen: isToAccountOpen,
+                              options: accountOptions,
+                              selectedValue: selectedToAccount,
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(25),
+                                    ),
+                                  ),
+                                  builder: (_) {
+                                    return AccountPickerSheet(
+                                      disabledAccountId:
+                                          selectedFromAccount?['id'],
+
+                                      title: "Select From Account",
+                                      subtitle:
+                                          "Choose the account you'd like to transfer to",
+                                      onSelected: (acct) {
+                                        ref
+                                                .read(
+                                                  selectedToAccountProvider
+                                                      .notifier,
+                                                )
+                                                .state =
+                                            acct;
+                                        Navigator.pop(context);
+                                      },
+                                    );
                                   },
                                 );
                               },
-                            );
-                          },
-                          onOptionSelected: (_) {},
-                        ),
-                        SizedBox(height: screenHeight * 0.035),
-                        AmountFiled(),
-                        SizedBox(height: 5),
-                        LimitInfoTile(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(22),
-                                ),
-                              ),
-                              isScrollControlled: true,
-                              builder: (_) => const LimitsBottomSheet(),
-                            );
-                          },
-                        ),
-                        SizedBox(height: screenHeight * 0.035),
-                        RemarksField(),
-                        SizedBox(height: screenHeight * 0.035),
-                        InfoNote(),
+                              onOptionSelected: (_) {},
+                            ),
+                            SizedBox(height: screenHeight * 0.040),
+                            AmountFiled(),
+                            SizedBox(height: screenHeight * 0.008),
+                            LimitInfoTile(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(22),
+                                    ),
+                                  ),
+                                  isScrollControlled: true,
+                                  builder: (_) => const LimitsBottomSheet(),
+                                );
+                              },
+                            ),
+                            SizedBox(height: screenHeight * 0.040),
+                            RemarksField(),
+                            SizedBox(height: screenHeight * 0.040),
+                            InfoNote(),
 
-                        SizedBox(height: screenHeight * 0.14),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: DefaultColors.skyBlue,
-                              padding: EdgeInsets.symmetric(vertical: 20),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              elevation: 0,
+                            SizedBox(height: screenHeight * 0.12),
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFFD3D3D3),
+
+                            padding: EdgeInsets.symmetric(
+                              vertical: screenWidth * 0.050,
                             ),
-                            child: Text(
-                              'Transfer',
-                              style: TextStyle(color: Colors.white),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
                             ),
+                            elevation: 0,
+                          ),
+                          child: Text(
+                            'Transfer',
+                            style: TextStyle(color: DefaultColors.white),
                           ),
                         ),
-                        SizedBox(height: 10),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

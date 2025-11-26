@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transfer_section/core/utils/colors.dart';
 
 class AccountPickerSheet extends StatelessWidget {
   final String? disabledAccountId;
@@ -46,7 +47,7 @@ class AccountPickerSheet extends StatelessWidget {
             height: screenHeight * 0.006,
             width: screenWidth * 0.12,
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
+              color: const Color.fromARGB(255, 238, 240, 255),
               borderRadius: BorderRadius.circular(50),
             ),
             margin: const EdgeInsets.only(bottom: 14),
@@ -59,17 +60,23 @@ class AccountPickerSheet extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.055,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: screenHeight * 0.001),
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.035,
+                    color: DefaultColors.grayMedBase,
+                  ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 18),
+          SizedBox(height: screenHeight * 0.02),
           ListView.separated(
             shrinkWrap: true,
             itemCount: accounts.length,
@@ -81,23 +88,31 @@ class AccountPickerSheet extends StatelessWidget {
               return Opacity(
                 opacity: disabled ? 0.45 : 1.0,
                 child: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 12,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: screenHeight * 0.012,
                     horizontal: 0,
                   ),
                   title: Text(
                     acct['title']!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: screenWidth * 0.040,
+                      color: DefaultColors.black,
                     ),
                   ),
-                  subtitle: Text(acct['accnumber']!),
+                  subtitle: Text(
+                    acct['accnumber']!,
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.034,
+                      color: DefaultColors.grayMedBase,
+                    ),
+                  ),
                   trailing: Text(
                     acct['balance']!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: screenWidth * 0.035,
+                      color: DefaultColors.black,
                     ),
                   ),
                   onTap: disabled ? null : () => onSelected(acct),

@@ -11,10 +11,10 @@ class RemarksField extends StatelessWidget {
     final screenHeight = mediaQuery.size.height;
     return Container(
       height: screenHeight * 0.065,
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
       decoration: BoxDecoration(
         color: DefaultColors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: DefaultColors.grayE5, width: 1),
       ),
       alignment: Alignment.centerLeft,
@@ -24,12 +24,15 @@ class RemarksField extends StatelessWidget {
           border: InputBorder.none,
           hintText: 'Remarks (Optional)',
           hintStyle: TextStyle(
-            fontSize: 17,
-            color: DefaultColors.gray7D,
+            fontSize: screenWidth * 0.038,
+            color: DefaultColors.grayMedBase,
             fontWeight: FontWeight.bold,
           ),
         ),
-        style: TextStyle(fontSize: 17, color: DefaultColors.black),
+        style: TextStyle(
+          fontSize: screenWidth * 0.038,
+          color: DefaultColors.black,
+        ),
       ),
     );
   }

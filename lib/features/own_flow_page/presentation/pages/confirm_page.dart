@@ -25,10 +25,11 @@ class _ConfirmPageState extends State<ConfirmPage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(top: 35),
+        padding: EdgeInsets.only(top: screenHeight * 0.035),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -66,7 +67,11 @@ class _ConfirmPageState extends State<ConfirmPage> {
                 child: Container(
                   width: screenWidth,
 
-                  padding: EdgeInsets.only(top: 32, left: 16, right: 16),
+                  padding: EdgeInsets.only(
+                    top: screenHeight * 0.03,
+                    left: screenWidth * 0.04,
+                    right: screenWidth * 0.04,
+                  ),
                   decoration: BoxDecoration(
                     color: DefaultColors.white,
                     borderRadius: BorderRadius.circular(28),
@@ -74,15 +79,15 @@ class _ConfirmPageState extends State<ConfirmPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 18),
+                      SizedBox(height: screenHeight * 0.02),
                       Text(
                         'Make sure the below transfer details are correct',
                         style: TextStyle(
-                          fontSize: 16,
-                          color: DefaultColors.grayBase,
+                          fontSize: screenWidth * 0.036,
+                          color: DefaultColors.grayMedBase,
                         ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: screenHeight * 0.02),
                       TransferDetailsCard(
                         fromAccount: transferData["fromAccount"]!,
                         toAccount: transferData["toAccount"]!,
@@ -114,7 +119,9 @@ class _ConfirmPageState extends State<ConfirmPage> {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: DefaultColors.dashboarddarkBlue,
-                            padding: EdgeInsets.symmetric(vertical: 20),
+                            padding: EdgeInsets.symmetric(
+                              vertical: screenHeight * 0.02,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -122,11 +129,14 @@ class _ConfirmPageState extends State<ConfirmPage> {
                           ),
                           child: Text(
                             'Transfer',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: DefaultColors.white,
+                              fontSize: screenWidth * 0.035,
+                            ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: screenHeight * 0.01),
                     ],
                   ),
                 ),

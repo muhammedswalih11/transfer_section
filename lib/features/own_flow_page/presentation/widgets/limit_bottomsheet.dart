@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transfer_section/core/utils/colors.dart';
 
 class LimitsBottomSheet extends StatelessWidget {
   const LimitsBottomSheet({super.key});
@@ -8,67 +9,117 @@ class LimitsBottomSheet extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
+
     return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      padding: EdgeInsets.only(
+        top: screenHeight * 0.012,
+        left: screenWidth * 0.04,
+        right: screenWidth * 0.04,
+        bottom: screenHeight * 0.03,
+      ),
+      decoration: BoxDecoration(
+        color: DefaultColors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: screenHeight * 0.006,
-            width: screenWidth * 0.12,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(50),
+          Center(
+            child: Container(
+              height: screenHeight * 0.006,
+              width: screenWidth * 0.12,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 195, 196, 204),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              margin: const EdgeInsets.only(bottom: 14),
             ),
-            margin: const EdgeInsets.only(bottom: 14),
           ),
-          const SizedBox(height: 20),
-          Align(
-            alignment: Alignment.centerLeft,
+          SizedBox(height: screenHeight * 0.01),
+
+          Text(
+            "Limits",
+            style: TextStyle(
+              fontSize: screenWidth * 0.06,
+              fontWeight: FontWeight.w700,
+              color: DefaultColors.black,
+            ),
+          ),
+
+          SizedBox(height: screenHeight * 0.02),
+
+          Container(
+            width: double.infinity,
+
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: DefaultColors.grayE5),
+              color: DefaultColors.white,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Limits",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.02,
+                    top: screenHeight * 0.01,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Minimum amount per transaction",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.034,
+                          color: DefaultColors.grayMedBase,
+                        ),
+                      ),
+                      Text(
+                        "0.01 QAR",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.038,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
 
-                SizedBox(height: 25),
+                SizedBox(height: screenHeight * 0.006),
+                Divider(color: DefaultColors.grayE5),
+                SizedBox(height: screenHeight * 0.006),
 
-                Text(
-                  "Minimum amount per transaction",
-                  style: TextStyle(fontSize: 15, color: Colors.black54),
-                ),
-                SizedBox(height: 6),
-                Text(
-                  "0.01 QAR",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                ),
-
-                SizedBox(height: 20),
-                Divider(color: Colors.grey),
-
-                SizedBox(height: 20),
-
-                Text(
-                  "Maximum amount per transaction",
-                  style: TextStyle(fontSize: 15, color: Colors.black54),
-                ),
-                SizedBox(height: 6),
-                Text(
-                  "100,000.00 QAR",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.02,
+                    bottom: screenHeight * 0.01,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Maximum amount per transaction",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.034,
+                          color: DefaultColors.grayMedBase,
+                        ),
+                      ),
+                      Text(
+                        "100,000.00 QAR",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.038,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
 
-          SizedBox(height: 20),
+          SizedBox(height: screenHeight * 0.01),
         ],
       ),
     );

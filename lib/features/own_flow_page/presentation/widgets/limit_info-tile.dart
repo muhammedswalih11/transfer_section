@@ -8,26 +8,38 @@ class LimitInfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.only(top: 5, bottom: 5, left: 15, right: 10),
+        padding: EdgeInsets.only(
+          top: screenHeight * 0.005,
+          bottom: screenHeight * 0.005,
+          left: screenWidth * 0.028,
+          right: screenWidth * 0.025,
+        ),
         decoration: BoxDecoration(
-          color: DefaultColors.blue04,
-          borderRadius: BorderRadius.circular(12),
+          color: DefaultColors.lightblue1,
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
           children: [
-            const Text(
+            Text(
               "Limit: ---   |   Transfers Left: --",
               style: TextStyle(
-                fontSize: 15,
+                fontSize: screenWidth * 0.030,
                 fontWeight: FontWeight.w600,
-                color: Colors.black87,
+                color: DefaultColors.black,
               ),
             ),
-            const Spacer(),
-            Icon(Icons.arrow_forward_ios, size: 18, color: Colors.black54),
+            Spacer(),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: screenWidth * 0.03,
+              color: DefaultColors.black,
+            ),
           ],
         ),
       ),

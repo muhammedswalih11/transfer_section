@@ -157,9 +157,10 @@ class DefaultColors {
   static const Color black2Re = Color(0xff334546);
   static const Color blue3 = Color(0xFF16074C);
   static const Color blue4 = Color(0xFF106EB2);
-
   static const Color yellow48 = Color.fromRGBO(254, 253, 237, 1);
+  static const Color lightblue1 = Color.fromARGB(255, 240, 248, 255);
 
+  static const Color flatblue = Color.fromARGB(183, 4, 117, 245);
   //gradient
 
   static Gradient primaryBackgroundGradient = LinearGradient(

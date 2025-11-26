@@ -18,6 +18,7 @@ class TransferDetailsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     return Container(
       width: screenWidth,
 
@@ -30,62 +31,65 @@ class TransferDetailsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+            padding: EdgeInsets.only(
+              left: screenWidth * 0.04,
+              top: screenHeight * 0.02,
+              bottom: screenHeight * 0.012,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [label("From account"), value(fromAccount)],
+              children: [
+                label("From account", context),
+                value(fromAccount, context),
+              ],
             ),
           ),
 
           divider(),
 
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+            padding: EdgeInsets.only(
+              left: screenWidth * 0.04,
+              top: screenHeight * 0.02,
+              bottom: screenHeight * 0.012,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [label("To account"), value(toAccount)],
+              children: [
+                label("To account", context),
+                value(toAccount, context),
+              ],
             ),
           ),
 
           divider(),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+            padding: EdgeInsets.only(
+              left: screenWidth * 0.04,
+              top: screenHeight * 0.02,
+              bottom: screenHeight * 0.012,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [label("Amount"), value(amount)],
+              children: [
+                label("Amount", context),
+                value("$amount QAR", context),
+              ],
             ),
           ),
           divider(),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+            padding: EdgeInsets.only(
+              left: screenWidth * 0.04,
+              top: screenHeight * 0.02,
+              bottom: screenHeight * 0.012,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [label("Remarks"), value(remarks)],
+              children: [label("Remarks", context), value(remarks, context)],
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget label(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 14,
-        color: DefaultColors.grayBase,
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-
-  Widget value(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 17,
-        fontWeight: FontWeight.bold,
-        color: DefaultColors.black,
       ),
     );
   }
@@ -96,5 +100,33 @@ Widget divider() {
     height: 1,
     width: double.infinity,
     color: DefaultColors.grayE4,
+  );
+}
+
+Widget label(String text, BuildContext context) {
+  final mediaQuery = MediaQuery.of(context);
+  final screenWidth = mediaQuery.size.width;
+
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: screenWidth * 0.035,
+      color: DefaultColors.grayMedBase,
+      fontWeight: FontWeight.w500,
+    ),
+  );
+}
+
+Widget value(String text, BuildContext context) {
+  final mediaQuery = MediaQuery.of(context);
+  final screenWidth = mediaQuery.size.width;
+
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: screenWidth * 0.037,
+      fontWeight: FontWeight.w500,
+      color: DefaultColors.black,
+    ),
   );
 }

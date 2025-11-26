@@ -15,10 +15,10 @@ class AmountFiled extends StatelessWidget {
         Expanded(
           child: Container(
             height: screenHeight * 0.065,
-            padding: EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
             decoration: BoxDecoration(
               color: DefaultColors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(color: DefaultColors.grayE5, width: 1),
             ),
             child: Row(
@@ -29,33 +29,39 @@ class AmountFiled extends StatelessWidget {
                       border: InputBorder.none,
                       hintText: 'Amount',
                       hintStyle: TextStyle(
-                        fontSize: 17,
-                        color: DefaultColors.gray7D,
+                        fontSize: screenWidth * 0.038,
+                        color: DefaultColors.grayMedBase,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     style: TextStyle(
-                      fontSize: 17,
-                      color: DefaultColors.black51,
+                      fontSize: screenWidth * 0.038,
+                      color: DefaultColors.black,
                     ),
                     keyboardType: TextInputType.number,
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.015,
+                    vertical: screenWidth * 0.01,
+                  ),
                   decoration: BoxDecoration(
-                    color: DefaultColors.blue9D.withOpacity(0.1),
+                    color: DefaultColors.lightblue1,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset('assets/images/Flags.svg'),
-                      SizedBox(width: 4),
+                      SvgPicture.asset(
+                        'assets/images/Flags.svg',
+                        width: screenWidth * 0.03,
+                      ),
+                      SizedBox(width: screenWidth * 0.01),
                       Text(
                         'QAR',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: screenWidth * 0.032,
                           fontWeight: FontWeight.bold,
                           color: DefaultColors.black,
                         ),

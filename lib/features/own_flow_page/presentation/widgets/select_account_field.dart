@@ -32,10 +32,10 @@ class SelectAccountField extends StatelessWidget {
       children: [
         Container(
           height: screenHeight * 0.065,
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
           decoration: BoxDecoration(
             color: DefaultColors.white,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
             border: Border.all(color: DefaultColors.grayE5, width: 1),
           ),
           child: Row(
@@ -48,9 +48,9 @@ class SelectAccountField extends StatelessWidget {
                       ? '${selectedValue!['title']} (${selectedValue!['accnumber']})'
                       : label,
                   style: TextStyle(
-                    fontSize: 17,
-                    color: DefaultColors.gray7D,
-                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.038,
+                    color: DefaultColors.grayMedBase,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -58,7 +58,7 @@ class SelectAccountField extends StatelessWidget {
                 onTap: onTap,
                 child: Icon(
                   Icons.keyboard_arrow_down,
-                  color: DefaultColors.black51,
+                  color: DefaultColors.black,
                   size: screenWidth * 0.06,
                 ),
               ),

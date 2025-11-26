@@ -16,9 +16,9 @@ class TransferSuccessPopup extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
     return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      padding: EdgeInsets.all(screenWidth * 0.04),
+      decoration: BoxDecoration(
+        color: DefaultColors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
       child: Column(
@@ -31,15 +31,15 @@ class TransferSuccessPopup extends StatelessWidget {
               color: Colors.grey.shade300,
               borderRadius: BorderRadius.circular(50),
             ),
-            margin: const EdgeInsets.only(bottom: 14),
+            margin: EdgeInsets.only(bottom: 14),
           ),
+          SizedBox(height: screenHeight * 0.01),
+          Image.asset('assets/gif/task_success_gif.gif', width: 140),
 
-          Image.asset('assets/gif/task_success_gif.gif', width: 170),
-
-          const Text(
+          Text(
             "Transfer Successful",
             style: TextStyle(
-              fontSize: 22,
+              fontSize: screenWidth * 0.05,
               fontWeight: FontWeight.bold,
               color: DefaultColors.black,
             ),
@@ -48,12 +48,12 @@ class TransferSuccessPopup extends StatelessWidget {
             _formattedDateTime(),
             style: const TextStyle(
               fontSize: 14,
-              color: DefaultColors.grayBase,
+              color: DefaultColors.grayMedBase,
               fontWeight: FontWeight.w500,
             ),
           ),
 
-          SizedBox(height: 20),
+          SizedBox(height: screenHeight * 0.02),
 
           Container(
             decoration: BoxDecoration(
@@ -65,48 +65,68 @@ class TransferSuccessPopup extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.04,
+                    top: screenHeight * 0.02,
+                    bottom: screenHeight * 0.012,
+                    right: screenWidth * 0.04,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _label("From account"),
-                      _value(data["fromAccount"]!),
+                      label("From account", context),
+                      value(data["fromAccount"]!, context),
                     ],
                   ),
                 ),
                 divider(),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.04,
+                    top: screenHeight * 0.02,
+                    bottom: screenHeight * 0.012,
+                    right: screenWidth * 0.04,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _label("To account"),
-                      _value(data["toAccount"]!),
+                      label("To account", context),
+                      value(data["toAccount"]!, context),
                     ],
                   ),
                 ),
                 divider(),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.04,
+                    top: screenHeight * 0.02,
+                    bottom: screenHeight * 0.012,
+                    right: screenWidth * 0.04,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _label("Amount"),
-                      _value("${data["amount"]!} QAR"),
+                      label("Amount", context),
+                      value("${data["amount"]!} QAR", context),
                     ],
                   ),
                 ),
                 divider(),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.04,
+                    top: screenHeight * 0.02,
+                    bottom: screenHeight * 0.012,
+                    right: screenWidth * 0.04,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _label("Reference number"),
+                      label("Reference number", context),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _value(data["reference"]!),
+                          value(data["reference"]!, context),
                           GestureDetector(
                             onTap: () {
                               Clipboard.setData(
@@ -130,10 +150,15 @@ class TransferSuccessPopup extends StatelessWidget {
                                 ),
                               );
                             },
-                            child: const Icon(
-                              Icons.copy,
-                              size: 20,
-                              color: DefaultColors.blue,
+                            child: Transform(
+                              alignment: Alignment.center,
+                              transform: Matrix4.rotationY(3.14159),
+                              child: Icon(
+                                Icons.copy_sharp,
+
+                                size: 20,
+                                color: DefaultColors.flatblue,
+                              ),
                             ),
                           ),
                         ],
@@ -146,32 +171,35 @@ class TransferSuccessPopup extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [_label("Remarks"), _value(data["remarks"]!)],
+                    children: [
+                      label("Remarks", context),
+                      value(data["remarks"]!, context),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
 
-          SizedBox(height: 20),
+          SizedBox(height: screenHeight * 0.02),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
                 'assets/images/Vector.svg',
-                width: 20,
-                color: DefaultColors.blue,
+                width: 16,
+                color: DefaultColors.flatblue,
               ),
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  'Share',
-                  style: TextStyle(color: DefaultColors.blue, fontSize: 18),
+                  'Share Transfer Details',
+                  style: TextStyle(color: DefaultColors.flatblue, fontSize: 18),
                 ),
               ),
             ],
           ),
-
+          SizedBox(height: screenHeight * 0.02),
           SizedBox(
             width: screenWidth,
             child: ElevatedButton(
@@ -200,24 +228,6 @@ class TransferSuccessPopup extends StatelessWidget {
       ),
     );
   }
-
-  Widget _label(String text) => Text(
-    text,
-    style: const TextStyle(
-      fontSize: 14,
-      color: DefaultColors.grayBase,
-      fontWeight: FontWeight.w500,
-    ),
-  );
-
-  Widget _value(String text) => Text(
-    text,
-    style: const TextStyle(
-      fontSize: 17,
-      fontWeight: FontWeight.bold,
-      color: DefaultColors.black,
-    ),
-  );
 }
 
 String _formattedDateTime() {
