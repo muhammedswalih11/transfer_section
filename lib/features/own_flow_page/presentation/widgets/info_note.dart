@@ -18,7 +18,7 @@ class InfoNote extends StatelessWidget {
         right: screenWidth * 0.050,
       ),
       decoration: BoxDecoration(
-        color: DefaultColors.blue_0,
+        color: DefaultColors.lightblue1,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -26,7 +26,7 @@ class InfoNote extends StatelessWidget {
         children: [
           Icon(
             Icons.info_outline,
-            color: DefaultColors.blue,
+            color: DefaultColors.blue9D,
             size: screenWidth * 0.04,
           ),
           SizedBox(width: screenWidth * 0.018),

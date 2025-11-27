@@ -131,6 +131,7 @@ class DefaultColors {
   static const Color blue02 = Color(0xFFD8DDEC);
   static const Color blue01 = Color(0xFF6E80B8);
   static const Color black2 = Color(0xFF333333);
+  static const Color blue00 = Color.fromARGB(255, 247, 251, 255);
 
   static const Color orange14 = Color(0xFFFFA814);
   static const Color orange40 = Color(0xFFF3AB40);

@@ -18,25 +18,14 @@ class LimitsBottomSheet extends StatelessWidget {
         bottom: screenHeight * 0.03,
       ),
       decoration: BoxDecoration(
-        color: DefaultColors.white,
+        color: DefaultColors.blue00,
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Container(
-              height: screenHeight * 0.006,
-              width: screenWidth * 0.12,
-              decoration: BoxDecoration(
-                color: DefaultColors.graylight,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              margin: const EdgeInsets.only(bottom: 14),
-            ),
-          ),
-          SizedBox(height: screenHeight * 0.01),
+          SizedBox(height: screenHeight * 0.04),
 
           Text(
             "Limits",
@@ -51,77 +40,143 @@ class LimitsBottomSheet extends StatelessWidget {
 
           Container(
             width: double.infinity,
-
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: DefaultColors.grayE5),
+              border: Border.all(color: DefaultColors.grayFE),
               color: DefaultColors.white,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: screenWidth * 0.02,
-                    top: screenHeight * 0.01,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Minimum amount per transaction",
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.034,
-                          color: DefaultColors.grayMedBase,
-                        ),
-                      ),
-                      Text(
-                        "0.01 QAR",
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.038,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+                _limitItem(
+                  context,
+                  title: "Minimum amount per transaction",
+                  value: "1.00 QAR",
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight,
                 ),
 
-                SizedBox(height: screenHeight * 0.006),
-                Divider(color: DefaultColors.grayE5),
-                SizedBox(height: screenHeight * 0.006),
+                _divider(context),
 
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: screenWidth * 0.02,
-                    bottom: screenHeight * 0.01,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Maximum amount per transaction",
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.034,
-                          color: DefaultColors.grayMedBase,
-                        ),
-                      ),
-                      Text(
-                        "100,000.00 QAR",
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.038,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+                _limitItem(
+                  context,
+                  title: "Maximum amount per transaction",
+                  value: "73,000,500.00 QAR",
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight,
+                ),
+
+                _divider(context),
+
+                _limitItem(
+                  context,
+                  title: "Maximum transfers per day",
+                  value: "35",
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight,
+                ),
+
+                _divider(context),
+
+                _limitItem(
+                  context,
+                  title: "Maximum transfers per month",
+                  value: "310",
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight,
+                ),
+
+                _divider(context),
+
+                _limitItem(
+                  context,
+                  title: "Maximum amount per day",
+                  value: "95,000,000.00 QAR",
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight,
+                ),
+
+                _divider(context),
+
+                _limitItem(
+                  context,
+                  title: "Maximum amount per month",
+                  value: "4,500,000,000.00 QAR",
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight,
                 ),
               ],
             ),
           ),
 
-          SizedBox(height: screenHeight * 0.01),
+          SizedBox(height: screenHeight * 0.03),
+
+          Center(
+            child: SizedBox(
+              width: screenWidth,
+              child: OutlinedButton(
+                onPressed: () => Navigator.pop(context),
+                style: OutlinedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                  side: BorderSide(color: DefaultColors.flatblue),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  "Close",
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.045,
+                    fontWeight: FontWeight.w600,
+                    color: DefaultColors.flatblue,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: screenHeight * 0.02),
         ],
       ),
     );
+  }
+
+  Widget _limitItem(
+    BuildContext context, {
+    required String title,
+    required String value,
+    required double screenWidth,
+    required double screenHeight,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: screenHeight * 0.01,
+        horizontal: screenWidth * 0.02,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: screenWidth * 0.034,
+              color: DefaultColors.black,
+            ),
+          ),
+          SizedBox(height: screenHeight * 0.004),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: screenWidth * 0.040,
+              fontWeight: FontWeight.bold,
+              color: DefaultColors.black,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _divider(BuildContext context) {
+    return Divider(color: DefaultColors.grayFE, height: 1, thickness: 1);
   }
 }

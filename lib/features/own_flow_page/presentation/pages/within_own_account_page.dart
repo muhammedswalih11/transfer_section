@@ -192,7 +192,7 @@ class WithinOwnAccountPage extends ConsumerWidget {
                                   ),
                                 ),
                                 isScrollControlled: true,
-                                builder: (_) => const LimitsBottomSheet(),
+                                builder: (_) => LimitsBottomSheet(),
                               );
                             },
                           ),

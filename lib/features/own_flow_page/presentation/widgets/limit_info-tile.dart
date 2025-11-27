@@ -11,23 +11,26 @@ class LimitInfoTile extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
-    return SizedBox(
-      child: Row(
-        children: [
-          Icon(
-            Icons.info_outline,
-            color: DefaultColors.grayMedBase,
-            size: screenWidth * 0.04,
-          ),
-          SizedBox(width: screenWidth * 0.03),
-          Text(
-            'Daily Limit : 50,000 QAR',
-            style: TextStyle(
-              fontSize: screenHeight * 0.015,
-              color: DefaultColors.grayMedBase,
+    return InkWell(
+      onTap: onTap,
+      child: SizedBox(
+        child: Row(
+          children: [
+            Icon(
+              Icons.info_outline,
+              color: DefaultColors.blue9D,
+              size: screenWidth * 0.04,
             ),
-          ),
-        ],
+            SizedBox(width: screenWidth * 0.03),
+            Text(
+              'Daily Limit : 50,000 QAR',
+              style: TextStyle(
+                fontSize: screenHeight * 0.013,
+                color: DefaultColors.grayMedBase,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
