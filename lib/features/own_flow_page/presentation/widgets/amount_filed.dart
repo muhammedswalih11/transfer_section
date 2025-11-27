@@ -14,7 +14,7 @@ class AmountFiled extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            height: screenHeight * 0.065,
+            height: screenHeight * 0.062,
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
             decoration: BoxDecoration(
               color: DefaultColors.white,

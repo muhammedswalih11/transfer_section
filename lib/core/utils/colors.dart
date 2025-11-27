@@ -79,6 +79,7 @@ class DefaultColors {
   static const Color black06 = Color(0xFF060606);
   static const Color black51 = Color(0xFF515151);
 
+  static const Color graylight = Color(0xFFD3D3D3);
   static const Color grayCA = Color(0xFFCACACA);
   static const Color grayF3 = Color(0xFFE0EAF3);
   static const Color grayF8 = Color(0xFFF8F8F8);

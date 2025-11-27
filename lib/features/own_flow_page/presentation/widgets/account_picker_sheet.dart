@@ -35,7 +35,7 @@ class AccountPickerSheet extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(screenWidth * 0.05),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
@@ -47,7 +47,7 @@ class AccountPickerSheet extends StatelessWidget {
             height: screenHeight * 0.006,
             width: screenWidth * 0.12,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 238, 240, 255),
+              color: DefaultColors.graylight,
               borderRadius: BorderRadius.circular(50),
             ),
             margin: const EdgeInsets.only(bottom: 14),

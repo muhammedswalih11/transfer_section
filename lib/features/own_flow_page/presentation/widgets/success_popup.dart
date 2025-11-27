@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:transfer_section/core/utils/colors.dart';
+import 'package:transfer_section/features/own_flow_page/presentation/widgets/share_as_popup.dart';
 import 'package:transfer_section/features/own_flow_page/presentation/widgets/transfer_details_card.dart';
 
 class TransferSuccessPopup extends StatelessWidget {
@@ -28,7 +29,7 @@ class TransferSuccessPopup extends StatelessWidget {
             height: screenHeight * 0.006,
             width: screenWidth * 0.12,
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
+              color: DefaultColors.graylight,
               borderRadius: BorderRadius.circular(50),
             ),
             margin: EdgeInsets.only(bottom: 14),
@@ -191,7 +192,21 @@ class TransferSuccessPopup extends StatelessWidget {
                 color: DefaultColors.flatblue,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        child: ShareAsPopup(),
+                      );
+                    },
+                  );
+                },
                 child: Text(
                   'Share Transfer Details',
                   style: TextStyle(color: DefaultColors.flatblue, fontSize: 18),
@@ -207,23 +222,23 @@ class TransferSuccessPopup extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: DefaultColors.dashboarddarkBlue,
 
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.013),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 elevation: 0,
               ),
-              child: const Text(
+              child: Text(
                 "Done",
                 style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontSize: screenWidth * 0.043,
+                  fontWeight: FontWeight.w400,
                   color: DefaultColors.white,
                 ),
               ),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: screenHeight * 0.01),
         ],
       ),
     );

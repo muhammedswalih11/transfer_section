@@ -23,12 +23,16 @@ class TermsAndConditionsCheckbox extends ConsumerWidget {
             width: screenWidth * 0.05,
             height: screenWidth * 0.05,
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isAccepted ? DefaultColors.white : Colors.transparent,
+              color: isAccepted ? DefaultColors.blue9D : Colors.white,
+              borderRadius: BorderRadius.circular(4),
               border: Border.all(color: DefaultColors.blue9D, width: 2),
             ),
             child: isAccepted
-                ? Icon(Icons.circle, color: DefaultColors.blue88, size: 16)
+                ? Icon(
+                    Icons.check,
+                    color: DefaultColors.white,
+                    size: screenWidth * 0.04,
+                  )
                 : null,
           ),
         ),
@@ -39,17 +43,17 @@ class TermsAndConditionsCheckbox extends ConsumerWidget {
               style: TextStyle(fontSize: 14, color: DefaultColors.black51),
               children: [
                 TextSpan(
-                  text: 'I accept the ',
+                  text: 'I have Read and Accept the ',
                   style: TextStyle(
                     color: DefaultColors.black,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 TextSpan(
-                  text: 'Terms and Conditions',
+                  text: 'Terms & Conditions',
                   style: TextStyle(
-                    color: DefaultColors.blue9D,
-                    decoration: TextDecoration.underline,
+                    color: DefaultColors.flatblue,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],

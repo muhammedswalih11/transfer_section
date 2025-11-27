@@ -10,7 +10,7 @@ class RemarksField extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
     return Container(
-      height: screenHeight * 0.065,
+      height: screenHeight * 0.062,
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
       decoration: BoxDecoration(
         color: DefaultColors.white,

@@ -11,37 +11,23 @@ class LimitInfoTile extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.only(
-          top: screenHeight * 0.005,
-          bottom: screenHeight * 0.005,
-          left: screenWidth * 0.028,
-          right: screenWidth * 0.025,
-        ),
-        decoration: BoxDecoration(
-          color: DefaultColors.lightblue1,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
-          children: [
-            Text(
-              "Limit: ---   |   Transfers Left: --",
-              style: TextStyle(
-                fontSize: screenWidth * 0.030,
-                fontWeight: FontWeight.w600,
-                color: DefaultColors.black,
-              ),
+    return SizedBox(
+      child: Row(
+        children: [
+          Icon(
+            Icons.info_outline,
+            color: DefaultColors.grayMedBase,
+            size: screenWidth * 0.04,
+          ),
+          SizedBox(width: screenWidth * 0.03),
+          Text(
+            'Daily Limit : 50,000 QAR',
+            style: TextStyle(
+              fontSize: screenHeight * 0.015,
+              color: DefaultColors.grayMedBase,
             ),
-            Spacer(),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: screenWidth * 0.03,
-              color: DefaultColors.black,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

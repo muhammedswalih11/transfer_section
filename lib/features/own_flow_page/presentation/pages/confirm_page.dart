@@ -120,7 +120,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: DefaultColors.dashboarddarkBlue,
                             padding: EdgeInsets.symmetric(
-                              vertical: screenHeight * 0.02,
+                              vertical: screenHeight * 0.013,
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -131,7 +131,8 @@ class _ConfirmPageState extends State<ConfirmPage> {
                             'Transfer',
                             style: TextStyle(
                               color: DefaultColors.white,
-                              fontSize: screenWidth * 0.035,
+                              fontSize: screenWidth * 0.043,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ),

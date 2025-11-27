@@ -30,7 +30,7 @@ class LimitsBottomSheet extends StatelessWidget {
               height: screenHeight * 0.006,
               width: screenWidth * 0.12,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 195, 196, 204),
+                color: DefaultColors.graylight,
                 borderRadius: BorderRadius.circular(50),
               ),
               margin: const EdgeInsets.only(bottom: 14),
