@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:transfer_section/core/utils/colors.dart';
-import 'package:transfer_section/features/own_flow_page/presentation/widgets/share_as_popup.dart';
-import 'package:transfer_section/features/own_flow_page/presentation/widgets/transfer_details_card.dart';
+import 'package:transfer_section/features/within_own_account/presentation/widgets/share_as_popup.dart';
+import 'package:transfer_section/features/within_own_account/presentation/widgets/transfer_details_card.dart';
 
 class TransferSuccessPopup extends StatelessWidget {
   final Map<String, String> data;

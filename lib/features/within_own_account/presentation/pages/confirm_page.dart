@@ -6,20 +6,29 @@ import '../widgets/success_popup.dart';
 import '../widgets/transfer_details_card.dart';
 
 class ConfirmPage extends StatefulWidget {
-  ConfirmPage({super.key});
+  final Map<String, String> transferData;
+  ConfirmPage({super.key, required this.transferData});
 
   @override
   State<ConfirmPage> createState() => _ConfirmPageState();
 }
 
 class _ConfirmPageState extends State<ConfirmPage> {
-  final Map<String, String> transferData = {
-    "fromAccount": "Savings Account xxxx2088",
-    "toAccount": "Current Account xxxx1998",
-    "amount": "400.00",
-    "reference": "REF789654321",
-    "remarks": "Self transfer",
-  };
+  // final Map<String, String> transferData = {
+  //   "fromAccount": "Savings Account xxxx2088",
+  //   "toAccount": "Current Account xxxx1998",
+  //   "amount": "400.00",
+  //   "reference": "REF789654321",
+  //   "remarks": "Self transfer",
+  // };
+
+  late Map<String, String> transferData;
+
+  @override
+  void initState() {
+    super.initState();
+    transferData = widget.transferData;
+  }
 
   @override
   Widget build(BuildContext context) {

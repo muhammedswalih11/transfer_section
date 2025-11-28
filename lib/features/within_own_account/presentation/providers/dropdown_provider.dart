@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Provider for From Account dropdown state (open/close)
@@ -21,3 +22,11 @@ final accountOptionsProvider = StateProvider<List<String>>((ref) => []);
 
 /// Provider for terms and conditions checkbox state
 final termsAcceptedProvider = StateProvider<bool>((ref) => false);
+
+final amountControllerProvider = Provider.autoDispose<TextEditingController>(
+  (ref) => TextEditingController(),
+);
+
+final remarksControllerProvider = Provider.autoDispose<TextEditingController>(
+  (ref) => TextEditingController(),
+);
