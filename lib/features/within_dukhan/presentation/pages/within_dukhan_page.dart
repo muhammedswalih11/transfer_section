@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:transfer_section/features/within_own_account/presentation/widgets/account_picker_sheet.dart';
-import 'package:transfer_section/features/within_own_account/presentation/widgets/amount_filed.dart';
-import 'package:transfer_section/features/within_own_account/presentation/widgets/choose_currency_sheet.dart';
-import 'package:transfer_section/features/within_own_account/presentation/widgets/custom_input_field.dart';
-import 'package:transfer_section/features/within_own_account/presentation/widgets/info_note.dart';
-import 'package:transfer_section/features/within_own_account/presentation/widgets/limit_bottomsheet.dart'
-    show LimitsBottomSheet;
-import 'package:transfer_section/features/within_own_account/presentation/widgets/limit_info-tile.dart';
-import '../../../../core/utils/colors.dart';
-import '../providers/dropdown_provider.dart';
-import '../widgets/select_account_field.dart';
-import '../widgets/remarks_field.dart';
-import '../widgets/terms_and_conditions_checkbox.dart';
-import 'confirm_page.dart';
+import 'package:transfer_section/features/within_dukhan/presentation/widgets/beneficiary_contact_sheet.dart';
+import 'package:transfer_section/features/within_dukhan/presentation/widgets/purpose_bottom_sheet.dart';
+import 'package:transfer_section/features/within_dukhan/presentation/widgets/purpose_of_transfer.dart';
 
-// class WithinOwnAccountPage extends ConsumerWidget {
-//   const WithinOwnAccountPage({super.key});
+import '../../../../core/utils/colors.dart';
+
+import '../../../within_own_account/presentation/pages/confirm_page.dart';
+import '../../../within_own_account/presentation/providers/dropdown_provider.dart';
+import '../../../within_own_account/presentation/widgets/account_picker_sheet.dart';
+import '../../../within_own_account/presentation/widgets/amount_filed.dart';
+import '../../../within_own_account/presentation/widgets/info_note.dart';
+import '../../../within_own_account/presentation/widgets/limit_bottomsheet.dart';
+import '../../../within_own_account/presentation/widgets/limit_info-tile.dart';
+import '../../../within_own_account/presentation/widgets/remarks_field.dart';
+import '../../../within_own_account/presentation/widgets/select_account_field.dart';
+import '../../../within_own_account/presentation/widgets/terms_and_conditions_checkbox.dart';
+import 'within_dukhan_confirmpage.dart';
+
+// class WithinDukhanPage extends ConsumerWidget {
+//   const WithinDukhanPage({super.key});
 
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,12 +27,11 @@ import 'confirm_page.dart';
 //     final screenWidth = mediaQuery.size.width;
 //     final screenHeight = mediaQuery.size.height;
 
-//     final accountOptions = ref.watch(accountOptionsProvider);
-//     final isFromAccountOpen = ref.watch(fromAccountDropdownProvider);
-//     final isToAccountOpen = ref.watch(toAccountDropdownProvider);
 //     final selectedFromAccount = ref.watch(selectedFromAccountProvider);
 //     final selectedToAccount = ref.watch(selectedToAccountProvider);
-
+//     final amountController = ref.watch(amountControllerProvider);
+//     final remarksController = ref.watch(remarksControllerProvider);
+//     final toBenificiary = ref.watch(toBenificiaryProvider);
 //     return Scaffold(
 //       body: Container(
 //         padding: EdgeInsets.only(top: 35),
@@ -55,7 +57,7 @@ import 'confirm_page.dart';
 //                   onPressed: () => Navigator.of(context).pop(),
 //                 ),
 //                 Text(
-//                   'Within Own Account',
+//                   'Within Dukhan Bank',
 //                   style: TextStyle(
 //                     fontSize: 22,
 //                     fontWeight: FontWeight.bold,
@@ -83,11 +85,9 @@ import 'confirm_page.dart';
 //                       Column(
 //                         crossAxisAlignment: CrossAxisAlignment.start,
 //                         children: [
-//                           SelectAccountField(
-//                             label: 'From Account',
+//                           AccountInputField(
+//                             labeltext: 'From Account',
 
-//                             isOpen: isFromAccountOpen,
-//                             options: accountOptions,
 //                             selectedValue: selectedFromAccount,
 //                             onTap: () {
 //                               showModalBottomSheet(
@@ -120,8 +120,6 @@ import 'confirm_page.dart';
 //                                 },
 //                               );
 //                             },
-
-//                             onOptionSelected: (_) {},
 //                           ),
 
 //                           SizedBox(
@@ -143,11 +141,9 @@ import 'confirm_page.dart';
 //                                   ),
 //                           ),
 //                           SizedBox(height: screenHeight * 0.016),
-//                           SelectAccountField(
-//                             label: 'To Account',
+//                           AccountInputField(
+//                             labeltext: 'To Beneficiary/Contact',
 
-//                             isOpen: isToAccountOpen,
-//                             options: accountOptions,
 //                             selectedValue: selectedToAccount,
 //                             onTap: () {
 //                               showModalBottomSheet(
@@ -163,7 +159,7 @@ import 'confirm_page.dart';
 //                                     disabledAccountId:
 //                                         selectedFromAccount?['id'],
 
-//                                     title: "Select From Account",
+//                                     title: "Select To Account",
 //                                     subtitle:
 //                                         "Choose the account you'd like to transfer to",
 //                                     onSelected: (acct) {
@@ -180,10 +176,9 @@ import 'confirm_page.dart';
 //                                 },
 //                               );
 //                             },
-//                             onOptionSelected: (_) {},
 //                           ),
 //                           SizedBox(height: screenHeight * 0.042),
-//                           AmountFiled(),
+//                           AmountFiled(controller: amountController),
 //                           SizedBox(height: screenHeight * 0.008),
 //                           LimitInfoTile(
 //                             onTap: () {
@@ -200,7 +195,57 @@ import 'confirm_page.dart';
 //                             },
 //                           ),
 //                           SizedBox(height: screenHeight * 0.032),
-//                           RemarksField(),
+//                           PurposeOfTransfer(
+//                             labeltext: 'Purpose of Transfer',
+//                             onTap: () {
+//                               showModalBottomSheet(
+//                                 context: context,
+//                                 shape: RoundedRectangleBorder(
+//                                   borderRadius: BorderRadius.vertical(
+//                                     top: Radius.circular(22),
+//                                   ),
+//                                 ),
+//                                 isScrollControlled: true,
+//                                 builder: (_) => PurposeBottomSheet(
+//                                   onSelected: (purpose) {
+//                                     ref
+//                                             .read(
+//                                               selectedPurposeProvider.notifier,
+//                                             )
+//                                             .state =
+//                                         purpose;
+//                                   },
+//                                 ),
+//                               );
+//                             },
+//                           ),
+//                           Consumer(
+//                             builder: (context, ref, _) {
+//                               final selectedPurpose = ref.watch(
+//                                 selectedPurposeProvider,
+//                               );
+
+//                               if (selectedPurpose == null)
+//                                 return SizedBox.shrink();
+
+//                               return Column(
+//                                 children: [
+//                                   SizedBox(height: screenHeight * 0.032),
+
+//                                   PurposeOfTransfer(
+//                                     labeltext: 'Sub Purpose of Transfer',
+//                                     onTap: () {
+//                                       // You will open sub purpose sheet later
+//                                     },
+//                                   ),
+
+//                                   SizedBox(height: screenHeight * 0.032),
+//                                 ],
+//                               );
+//                             },
+//                           ),
+//                           SizedBox(height: screenHeight * 0.032),
+//                           RemarksField(controller: remarksController),
 //                           SizedBox(height: screenHeight * 0.18),
 //                           InfoNote(),
 //                           SizedBox(height: screenHeight * 0.02),
@@ -245,8 +290,8 @@ import 'confirm_page.dart';
 //   }
 // }
 
-class WithinOwnAccountPage extends ConsumerWidget {
-  const WithinOwnAccountPage({super.key});
+class WithinDukhanPage extends ConsumerWidget {
+  const WithinDukhanPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -261,7 +306,6 @@ class WithinOwnAccountPage extends ConsumerWidget {
     final selectedToAccount = ref.watch(selectedToAccountProvider);
     final amountController = ref.watch(amountControllerProvider);
     final remarksController = ref.watch(remarksControllerProvider);
-
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: 35),
@@ -287,7 +331,7 @@ class WithinOwnAccountPage extends ConsumerWidget {
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 Text(
-                  'Within Own Account',
+                  'Within Dukhan',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -372,7 +416,7 @@ class WithinOwnAccountPage extends ConsumerWidget {
                           ),
                           SizedBox(height: screenHeight * 0.016),
                           AccountInputField(
-                            labeltext: 'To Account',
+                            labeltext: 'To Beneficiary/Contact',
 
                             selectedValue: selectedToAccount,
                             onTap: () {
@@ -385,23 +429,8 @@ class WithinOwnAccountPage extends ConsumerWidget {
                                   ),
                                 ),
                                 builder: (_) {
-                                  return AccountPickerSheet(
-                                    disabledAccountId:
-                                        selectedFromAccount?['id'],
-
-                                    title: "Select To Account",
-                                    subtitle:
-                                        "Choose the account you'd like to transfer to",
-                                    onSelected: (acct) {
-                                      ref
-                                              .read(
-                                                selectedToAccountProvider
-                                                    .notifier,
-                                              )
-                                              .state =
-                                          acct;
-                                      Navigator.pop(context);
-                                    },
+                                  return BeneficiaryBottomSheetContent(
+                                    mq: mediaQuery,
                                   );
                                 },
                               );
@@ -425,8 +454,171 @@ class WithinOwnAccountPage extends ConsumerWidget {
                             },
                           ),
                           SizedBox(height: screenHeight * 0.032),
+                          PurposeOfTransfer(
+                            labeltext: 'Purpose of Transfer',
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(22),
+                                  ),
+                                ),
+                                isScrollControlled: true,
+                                builder: (_) => UniversalPurposeSheet(
+                                  isSubPurpose: false,
+                                  onPurposeSelected: (purpose) {
+                                    ref
+                                            .read(
+                                              selectedPurposeProvider.notifier,
+                                            )
+                                            .state =
+                                        purpose;
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                          Consumer(
+                            builder: (context, ref, _) {
+                              final selectedPurpose = ref.watch(
+                                selectedPurposeProvider,
+                              );
+
+                              if (selectedPurpose == null)
+                                return SizedBox.shrink();
+
+                              return Column(
+                                children: [
+                                  SizedBox(height: screenHeight * 0.032),
+
+                                  SubPurpose(
+                                    labeltext: 'Sub purpose of Transfer',
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(22),
+                                          ),
+                                        ),
+                                        isScrollControlled: true,
+                                        builder: (_) => UniversalPurposeSheet(
+                                          isSubPurpose: true,
+                                          onSubPurposeSelected: (subPurpose) {
+                                            ref
+                                                    .read(
+                                                      selectedSubPurposeProvider
+                                                          .notifier,
+                                                    )
+                                                    .state =
+                                                subPurpose;
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+
+                                  SizedBox(height: screenHeight * 0.032),
+                                ],
+                              );
+                            },
+                          ),
+                          SizedBox(height: screenHeight * 0.015),
                           RemarksField(controller: remarksController),
                           SizedBox(height: screenHeight * 0.18),
+                          Consumer(
+                            builder: (context, ref, _) {
+                              final amount = ref.watch(amountProvider);
+
+                              if (amount.isEmpty) return SizedBox.shrink();
+
+                              // Convert amount to double safely
+                              final amt = double.tryParse(amount) ?? 0.0;
+
+                              final fee = 4.00; // fixed or dynamic later
+                              final total = amt + fee;
+
+                              return Column(
+                                children: [
+                                  SizedBox(height: screenHeight * 0.02),
+
+                                  // FIRST BOX: FEES
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 18,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(
+                                        0xffe8f4fa,
+                                      ), // light blue
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Fees",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${fee.toStringAsFixed(2)} QAR",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 12),
+
+                                  // SECOND BOX: TOTAL DEBIT
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 18,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xffe8f4fa),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Total Debit Amount",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${total.toStringAsFixed(2)} QAR",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+
                           InfoNote(),
                           SizedBox(height: screenHeight * 0.02),
                           TermsAndConditionsCheckbox(),
@@ -440,22 +632,66 @@ class WithinOwnAccountPage extends ConsumerWidget {
                                     selectedToAccount == null)
                                   return;
 
-                                final data = {
+                                final selectedPurpose = ref.read(
+                                  selectedPurposeProvider,
+                                );
+                                final selectedSubPurpose = ref.read(
+                                  selectedSubPurposeProvider,
+                                );
+                                final amount = amountController.text;
+
+                                final fee = 4.00;
+                                final total =
+                                    (double.tryParse(amount) ?? 0) + fee;
+                                final Map<String, String> data = {
                                   "fromAccount":
                                       "${selectedFromAccount['title']} ${selectedFromAccount['accnumber']}",
-                                  "toAccount":
+
+                                  "toBeneficiaryContact":
                                       "${selectedToAccount['title']} ${selectedToAccount['accnumber']}",
-                                  "amount": amountController.text,
+
+                                  "amount": amountController
+                                      .text, // user entered amount only
+                                  "fee": fee.toStringAsFixed(2), // 4.00
+
+                                  "totalAmount": total.toStringAsFixed(
+                                    2,
+                                  ), // amount + fee
+
+                                  "purpose":
+                                      "${selectedPurpose?['title'] ?? ''}${selectedSubPurpose != null ? " - $selectedSubPurpose" : ""}",
+
                                   "remarks": remarksController.text,
+
                                   "reference":
                                       "REF${DateTime.now().millisecondsSinceEpoch}",
                                 };
 
+                                // final Map<String, String> data = {
+                                //   "fromAccount":
+                                //       "${selectedFromAccount['title']} ${selectedFromAccount['accnumber']}",
+                                //   "to Beneficiary/Contact":
+                                //       "${selectedToAccount['title']} ${selectedToAccount['accnumber']}",
+
+                                //   "amount": total.toStringAsFixed(
+                                //     2,
+                                //   ), // total debit amount
+                                //   "fee": fee.toStringAsFixed(2),
+
+                                //   "purpose of Transfer":
+                                //       "${selectedPurpose?['title'] ?? ''}${selectedSubPurpose != null ? " - $selectedSubPurpose" : ""}",
+
+                                //   "remarks": remarksController.text,
+                                //   "reference":
+                                //       "REF${DateTime.now().millisecondsSinceEpoch}",
+                                // };
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) =>
-                                        ConfirmPage(transferData: data),
+                                    builder: (_) => WithinDukhanConfirmpage(
+                                      transferDataOfWithinDukhan: data,
+                                    ),
                                   ),
                                 );
                               },

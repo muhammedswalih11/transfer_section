@@ -3,78 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/utils/colors.dart';
 
-// class CustomInputField extends StatelessWidget {
-//   final String hint;
-//   final bool enabled;
-//   final bool showDropdown;
-//   final VoidCallback? onDropdownTap;
-//   final Widget? trailing;
-//   final TextEditingController? controller;
-//   final TextInputType? inputType;
-//   final bool isBoldHint;
-
-//   const CustomInputField({
-//     super.key,
-//     required this.hint,
-//     this.enabled = true,
-//     this.showDropdown = false,
-//     this.onDropdownTap,
-//     this.trailing,
-//     this.controller,
-//     this.inputType,
-//     this.isBoldHint = false,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final mediaQuery = MediaQuery.of(context);
-//     final screenWidth = mediaQuery.size.width;
-//     final screenHeight = mediaQuery.size.height;
-
-//     return Row(
-//       children: [
-//         Expanded(
-//           child: TextFormField(
-//             controller: controller,
-//             enabled: enabled,
-//             keyboardType: inputType,
-
-//             decoration: InputDecoration(
-//               labelText: hint,
-//               border: InputBorder.none,
-//               contentPadding: EdgeInsets.only(top: 16),
-//               floatingLabelBehavior: FloatingLabelBehavior.auto,
-//               labelStyle: TextStyle(
-//                 fontSize: screenWidth * 0.038,
-//                 color: const Color(0xFF888888),
-//                 fontWeight: isBoldHint ? FontWeight.bold : FontWeight.normal,
-//               ),
-//             ),
-//             style: TextStyle(
-//               fontSize: screenWidth * 0.038,
-//               color: Colors.black,
-//             ),
-//           ),
-//         ),
-
-//         /// Trailing widget like QAR box
-//         if (trailing != null) ...[const SizedBox(width: 10), trailing!],
-
-//         /// Dropdown button (optional)
-//         if (showDropdown)
-//           InkWell(
-//             onTap: onDropdownTap,
-//             child: Icon(
-//               Icons.keyboard_arrow_down,
-//               size: screenWidth * 0.06,
-//               color: Colors.black,
-//             ),
-//           ),
-//       ],
-//     );
-//   }
-// }
-
 class CustomInputField extends StatelessWidget {
   final String label;
   final String value;
@@ -83,6 +11,7 @@ class CustomInputField extends StatelessWidget {
   final Widget? suffixWidget;
   final TextEditingController? controller;
   final TextInputType? inputType;
+  final Function(String)? onChanged;
 
   const CustomInputField({
     super.key,
@@ -94,6 +23,7 @@ class CustomInputField extends StatelessWidget {
     this.suffixWidget,
     this.controller,
     this.inputType,
+    this.onChanged,
   });
 
   OutlineInputBorder _border() {
@@ -111,6 +41,7 @@ class CustomInputField extends StatelessWidget {
 
     return TextFormField(
       controller: controller,
+      onChanged: onChanged,
       // ?..text = controller!.text.isEmpty
       //     ? value
       //     : controller!.text, // <-- important
@@ -161,3 +92,69 @@ class CustomInputField extends StatelessWidget {
     );
   }
 }
+
+// class CustomInputField extends StatelessWidget {
+//   final String label;
+//   final String value;
+//   final bool showDropdown;
+//   final VoidCallback? onTap;
+//   final TextEditingController? controller;
+
+//   const CustomInputField({
+//     super.key,
+//     required this.label,
+//     required this.value,
+//     this.showDropdown = false,
+//     this.onTap,
+//     this.controller, required Container suffixWidget,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final effectiveController = controller ?? TextEditingController();
+
+//     // IMPORTANT FIX — update controller text WITHOUT cursor jump
+//     if (effectiveController.text != value) {
+//       effectiveController.value = effectiveController.value.copyWith(
+//         text: value,
+//         selection: TextSelection.collapsed(offset: value.length),
+//       );
+//     }
+
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: AbsorbPointer(
+//         absorbing: true, // disable typing
+//         child: TextField(
+//           controller: effectiveController,
+//           decoration: InputDecoration(
+//             labelText: label,
+//             labelStyle: const TextStyle(
+//               color: Colors.grey,
+//               fontSize: 14,
+//             ),
+//             floatingLabelBehavior: FloatingLabelBehavior.auto,
+//             suffixIcon: showDropdown
+//                 ? const Icon(Icons.keyboard_arrow_down_rounded, size: 26)
+//                 : null,
+//             enabledBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(12),
+//               borderSide: const BorderSide(color: Color(0xffdcdcdc)),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(12),
+//               borderSide: const BorderSide(
+//                 color: Color(0xff7E7E7E),
+//                 width: 1.3,
+//               ),
+//             ),
+//             contentPadding: const EdgeInsets.symmetric(
+//               horizontal: 14,
+//               vertical: 16,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

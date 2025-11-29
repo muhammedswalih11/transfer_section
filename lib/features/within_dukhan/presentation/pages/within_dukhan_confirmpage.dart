@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:transfer_section/features/within_dukhan/presentation/widgets/within_dukhan_succes.dart';
+import 'package:transfer_section/features/within_dukhan/presentation/widgets/within_dukhan_transfercard.dart';
 
 import '../../../../core/utils/colors.dart';
-import '../widgets/success_popup.dart';
-import '../widgets/transfer_details_card.dart';
 
-class ConfirmPage extends StatefulWidget {
-  final Map<String, String> transferData;
-  ConfirmPage({super.key, required this.transferData});
+class WithinDukhanConfirmpage extends StatefulWidget {
+  final Map<String, String> transferDataOfWithinDukhan;
+  const WithinDukhanConfirmpage({
+    super.key,
+    required this.transferDataOfWithinDukhan,
+  });
 
   @override
-  State<ConfirmPage> createState() => _ConfirmPageState();
+  State<WithinDukhanConfirmpage> createState() =>
+      _WithinDukhanConfirmpageState();
 }
 
-class _ConfirmPageState extends State<ConfirmPage> {
-  // final Map<String, String> transferData = {
-  //   "fromAccount": "Savings Account xxxx2088",
-  //   "toAccount": "Current Account xxxx1998",
-  //   "amount": "400.00",
-  //   "reference": "REF789654321",
-  //   "remarks": "Self transfer",
-  // };
-
+class _WithinDukhanConfirmpageState extends State<WithinDukhanConfirmpage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
-
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: screenHeight * 0.035),
@@ -89,11 +83,19 @@ class _ConfirmPageState extends State<ConfirmPage> {
                         ),
                       ),
                       SizedBox(height: screenHeight * 0.02),
-                      TransferDetailsCard(
-                        fromAccount: widget.transferData["fromAccount"]!,
-                        toAccount: widget.transferData["toAccount"]!,
-                        amount: widget.transferData["amount"]!,
-                        remarks: widget.transferData["remarks"]!,
+                      WithinDukhanTransfercard(
+                        fromAccount:
+                            widget.transferDataOfWithinDukhan["fromAccount"]!,
+                        toBenificiaryContact: widget
+                            .transferDataOfWithinDukhan["toBeneficiaryContact"]!,
+                        totalAmount:
+                            widget.transferDataOfWithinDukhan["totalAmount"]!,
+                        purposeofTransfer:
+                            widget.transferDataOfWithinDukhan["purpose"]!,
+                        remarks: widget.transferDataOfWithinDukhan["remarks"]!,
+                        fee: double.parse(
+                          widget.transferDataOfWithinDukhan["fee"]!,
+                        ),
                       ),
                       Spacer(),
                       SizedBox(
@@ -111,8 +113,8 @@ class _ConfirmPageState extends State<ConfirmPage> {
                                       context,
                                     ).viewInsets.bottom,
                                   ),
-                                  child: TransferSuccessPopup(
-                                    data: widget.transferData,
+                                  child: WithinDukhanSucces(
+                                    data: widget.transferDataOfWithinDukhan,
                                   ),
                                 );
                               },

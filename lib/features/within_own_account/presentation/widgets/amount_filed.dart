@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/custom_input_field.dart';
 import '../../../../core/utils/colors.dart';
+import '../providers/dropdown_provider.dart';
 
 // class AmountFiled extends StatelessWidget {
 //   const AmountFiled({super.key});
@@ -79,12 +81,12 @@ import '../../../../core/utils/colors.dart';
 //   }
 // }
 
-class AmountFiled extends StatelessWidget {
+class AmountFiled extends ConsumerWidget {
   final TextEditingController controller;
   const AmountFiled({super.key, required this.controller});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
@@ -113,6 +115,9 @@ class AmountFiled extends StatelessWidget {
           ],
         ),
       ),
+      onChanged: (value) {
+        ref.read(amountProvider.notifier).state = value;
+      },
 
       inputType: TextInputType.number,
     );
