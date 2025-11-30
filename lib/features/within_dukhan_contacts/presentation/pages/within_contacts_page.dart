@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:transfer_section/features/within_dukhan/presentation/pages/within_dukhan_confirmpage.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/widgets/beneficiary_contact_sheet.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/widgets/purpose_bottom_sheet.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/widgets/purpose_of_transfer.dart';
+import 'package:transfer_section/features/within_dukhan_contacts/presentation/pages/transfer_bt_sheettest.dart';
+import 'package:transfer_section/features/within_dukhan_contacts/presentation/widgets/bottom_sheet.dart';
+import 'package:transfer_section/features/within_own_account/presentation/widgets/amount_filed.dart';
+import 'package:transfer_section/features/within_own_account/presentation/widgets/remarks_field.dart';
+import 'package:transfer_section/features/within_dukhan_contacts/data/contact_model.dart';
 
 import '../../../../core/utils/colors.dart';
-
-import '../../../within_own_account/presentation/pages/confirm_page.dart';
 import '../../../within_own_account/presentation/providers/dropdown_provider.dart';
 import '../../../within_own_account/presentation/widgets/account_picker_sheet.dart';
-import '../../../within_own_account/presentation/widgets/amount_filed.dart';
 import '../../../within_own_account/presentation/widgets/info_note.dart';
 import '../../../within_own_account/presentation/widgets/limit_bottomsheet.dart';
 import '../../../within_own_account/presentation/widgets/limit_info-tile.dart';
-import '../../../within_own_account/presentation/widgets/remarks_field.dart';
 import '../../../within_own_account/presentation/widgets/select_account_field.dart';
 import '../../../within_own_account/presentation/widgets/terms_and_conditions_checkbox.dart';
-import 'within_dukhan_confirmpage.dart';
 
-class WithinDukhanPage extends ConsumerWidget {
-  const WithinDukhanPage({super.key});
+class WithinContactsPage extends ConsumerWidget {
+  const WithinContactsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,9 +28,6 @@ class WithinDukhanPage extends ConsumerWidget {
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
 
-    // final accountOptions = ref.watch(accountOptionsProvider);
-    // final isFromAccountOpen = ref.watch(fromAccountDropdownProvider);
-    // final isToAccountOpen = ref.watch(toAccountDropdownProvider);
     final selectedFromAccount = ref.watch(selectedFromAccountProvider);
     final selectedToAccount = ref.watch(selectedToAccountProvider);
     final selectedToBeneficiary = ref.watch(toBenificiaryProvider);
@@ -60,7 +58,7 @@ class WithinDukhanPage extends ConsumerWidget {
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 Text(
-                  'Within Dukhan',
+                  'Within Contacts',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -78,7 +76,7 @@ class WithinDukhanPage extends ConsumerWidget {
                     top: screenHeight * 0.050,
                     left: screenWidth * 0.040,
                     right: screenWidth * 0.040,
-                    bottom: screenHeight * 0.020,
+                    bottom: screenHeight * 0.030,
                   ),
                   decoration: BoxDecoration(
                     color: DefaultColors.white,
@@ -160,19 +158,26 @@ class WithinDukhanPage extends ConsumerWidget {
                                       ),
                                     ),
                                     builder: (_) {
-                                      return BeneficiaryBottomSheetContent(
-                                        mq: mediaQuery,
-                                      );
+                                      return TransferBottomSheetWidget();
                                     },
                                   );
 
                               if (result != null) {
+                                // Handle different result types
+                                String accountNumber = '';
+                                if (result is ContactModel) {
+                                  accountNumber = result.accountNo;
+                                } else {
+                                  // Assume it's BeneficiaryModel
+                                  accountNumber = result.accNumber;
+                                }
+
                                 ref
                                     .read(toBenificiaryProvider.notifier)
                                     .state = {
                                   'id': result.name,
                                   'title': result.name,
-                                  'subtitle': 'XXXX1827',
+                                  'subtitle': accountNumber,
                                 };
                               }
                             },
@@ -362,7 +367,7 @@ class WithinDukhanPage extends ConsumerWidget {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: screenHeight * 0.02),
+                                  SizedBox(height: screenHeight * 0.016),
                                 ],
                               );
                             },
@@ -381,10 +386,6 @@ class WithinDukhanPage extends ConsumerWidget {
                                 width: screenWidth,
 
                                 child: ElevatedButton(
-                                  // onPressed: () {
-                                  //   if (selectedFromAccount == null ||
-                                  //       selectedToAccount == null)
-                                  //     return;
                                   onPressed: isEnabled
                                       ? () {
                                           if (!isEnabled) return;
@@ -463,6 +464,7 @@ class WithinDukhanPage extends ConsumerWidget {
                               );
                             },
                           ),
+                          SizedBox(height: screenHeight * 0.05),
                         ],
                       ),
                     ],

@@ -35,7 +35,10 @@ class WithinDukhanSucces extends StatelessWidget {
             margin: EdgeInsets.only(bottom: 14),
           ),
           SizedBox(height: screenHeight * 0.01),
-          Image.asset('assets/gif/task_success_gif.gif', width: 140),
+          Image.asset(
+            'assets/gif/task_success_gif.gif',
+            width: screenWidth * 0.25,
+          ),
 
           Text(
             "Transfer Successful",

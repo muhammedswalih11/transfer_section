@@ -145,6 +145,7 @@ class DefaultColors {
   static const Color green54 = Color(0xFF1DB954);
 
   static const Color red64 = Color(0xFFFF9364);
+  static const Color grayTB = Color(0xff63656A);
 
   static const Color blueBase = Color(0xFF0D3E7F);
   static const Color blueLightBase = Color(0xFF4197CB);
@@ -161,6 +162,8 @@ class DefaultColors {
   static const Color blue4 = Color(0xFF106EB2);
   static const Color yellow48 = Color.fromRGBO(254, 253, 237, 1);
   static const Color lightblue1 = Color.fromARGB(255, 240, 248, 255);
+  static const Color blueT1 = Color(0xff002D74);
+  static const Color blackT = Color(0xff222222);
 
   static const Color flatblue = Color.fromARGB(183, 4, 117, 245);
   //gradient

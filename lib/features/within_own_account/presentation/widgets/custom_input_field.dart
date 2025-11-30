@@ -52,8 +52,8 @@ class CustomInputField extends StatelessWidget {
         labelText: label,
         labelStyle: TextStyle(
           fontSize: screenWidth * 0.038,
-          color: DefaultColors.grayMedBase,
-          fontWeight: FontWeight.w500,
+          color: DefaultColors.gray7D,
+          fontWeight: FontWeight.w400,
         ),
 
         border: _border(),
@@ -92,69 +92,3 @@ class CustomInputField extends StatelessWidget {
     );
   }
 }
-
-// class CustomInputField extends StatelessWidget {
-//   final String label;
-//   final String value;
-//   final bool showDropdown;
-//   final VoidCallback? onTap;
-//   final TextEditingController? controller;
-
-//   const CustomInputField({
-//     super.key,
-//     required this.label,
-//     required this.value,
-//     this.showDropdown = false,
-//     this.onTap,
-//     this.controller, required Container suffixWidget,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final effectiveController = controller ?? TextEditingController();
-
-//     // IMPORTANT FIX — update controller text WITHOUT cursor jump
-//     if (effectiveController.text != value) {
-//       effectiveController.value = effectiveController.value.copyWith(
-//         text: value,
-//         selection: TextSelection.collapsed(offset: value.length),
-//       );
-//     }
-
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: AbsorbPointer(
-//         absorbing: true, // disable typing
-//         child: TextField(
-//           controller: effectiveController,
-//           decoration: InputDecoration(
-//             labelText: label,
-//             labelStyle: const TextStyle(
-//               color: Colors.grey,
-//               fontSize: 14,
-//             ),
-//             floatingLabelBehavior: FloatingLabelBehavior.auto,
-//             suffixIcon: showDropdown
-//                 ? const Icon(Icons.keyboard_arrow_down_rounded, size: 26)
-//                 : null,
-//             enabledBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(12),
-//               borderSide: const BorderSide(color: Color(0xffdcdcdc)),
-//             ),
-//             focusedBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(12),
-//               borderSide: const BorderSide(
-//                 color: Color(0xff7E7E7E),
-//                 width: 1.3,
-//               ),
-//             ),
-//             contentPadding: const EdgeInsets.symmetric(
-//               horizontal: 14,
-//               vertical: 16,
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

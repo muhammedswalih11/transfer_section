@@ -96,14 +96,14 @@ class AccountPickerSheet extends StatelessWidget {
                     acct['title']!,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.040,
+                      fontSize: screenWidth * 0.042,
                       color: DefaultColors.black,
                     ),
                   ),
                   subtitle: Text(
                     acct['accnumber']!,
                     style: TextStyle(
-                      fontSize: screenWidth * 0.034,
+                      fontSize: screenWidth * 0.036,
                       color: DefaultColors.grayMedBase,
                     ),
                   ),

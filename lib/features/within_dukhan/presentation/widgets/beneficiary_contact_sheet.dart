@@ -52,79 +52,88 @@ class _BeneficiaryBottomSheetContentState
 
     final handleWidth = w * 0.12;
 
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BeneficiaryHeader(handleWidth: handleWidth),
-            const SizedBox(height: 22),
-            Row(
-              children: [
-                Expanded(
-                  child: BeneficiarySearchField(
-                    iconSize: _iconSize,
-                    onSearch: (v) => ref
-                        .read(beneficiariesSearchProvider.notifier)
-                        .search(v),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                Container(
-                  height: w * 0.12,
-                  width: w * 0.12,
-                  decoration: BoxDecoration(
-                    color: DefaultColors.white,
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: DefaultColors.blue9D),
-                  ),
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: Icon(
-                      Icons.add,
-                      color: DefaultColors.blue9D,
-                      size: _iconSize,
+    return Container(
+      // This gives actual bottom-sheet size
+      height: widget.mq.size.height * 0.78, // adjust between 0.65 – 0.80
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BeneficiaryHeader(handleWidth: widget.mq.size.width * 0.12),
+              const SizedBox(height: 22),
+
+              /// Search + Add button
+              Row(
+                children: [
+                  Expanded(
+                    child: BeneficiarySearchField(
+                      iconSize: _iconSize,
+                      onSearch: (v) => ref
+                          .read(beneficiariesSearchProvider.notifier)
+                          .search(v),
                     ),
-                    onPressed: () {},
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 22),
-            BeneficiaryTabBar(
-              filteredCount: filtered.length,
-              active: active,
-              onTabSelected: (tab) => setState(() => active = tab),
-              height: w * 0.11,
-              cornerRadius: 30,
-            ),
-            const SizedBox(height: 18),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: DefaultColors.white,
-                  border: Border.all(color: DefaultColors.grayE6),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: active == 'beneficiaries'
-                      ? BeneficiaryList(display: display, iconSize: _iconSize)
-                      : Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(24.0),
+                  const SizedBox(width: 20),
+                  Container(
+                    height: widget.mq.size.width * 0.12,
+                    width: widget.mq.size.width * 0.12,
+                    decoration: BoxDecoration(
+                      color: DefaultColors.white,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: DefaultColors.blue9D),
+                    ),
+                    child: Icon(
+                      Icons.add,
+                      size: _iconSize,
+                      color: DefaultColors.blue9D,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 22),
+
+              /// Tabs
+              BeneficiaryTabBar(
+                filteredCount: filtered.length,
+                active: active,
+                onTabSelected: (tab) => setState(() => active = tab),
+                height: widget.mq.size.width * 0.11,
+                cornerRadius: 30,
+              ),
+
+              const SizedBox(height: 18),
+
+              /// List area (scrollable)
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: DefaultColors.grayE6),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: active == 'beneficiaries'
+                        ? BeneficiaryList(display: display, iconSize: _iconSize)
+                        : Center(
                             child: Text(
-                              'Contacts placeholder — contacts are handled separately',
-                              textAlign: TextAlign.center,
+                              'Contacts placeholder — contacts are separate',
                               style: TextStyle(color: DefaultColors.gray82),
                             ),
                           ),
-                        ),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
