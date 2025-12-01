@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:transfer_section/core/utils/colors.dart';
+import 'package:transfer_section/features/within_own_account/presentation/widgets/share_action_row.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/share_as_popup.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/transfer_details_card.dart';
 
@@ -189,32 +190,35 @@ class TransferSuccessPopup extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                'assets/images/Vector.svg',
-                width: 16,
-                color: DefaultColors.flatblue,
-              ),
-              TextButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (context) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom,
-                        ),
-                        child: ShareAsPopup(),
-                      );
-                    },
-                  );
-                },
-                child: Text(
-                  'Share Transfer Details',
-                  style: TextStyle(color: DefaultColors.flatblue, fontSize: 18),
-                ),
-              ),
+              // SvgPicture.asset(
+              //   'assets/images/Vector.svg',
+              //   width: 16,
+              //   color: DefaultColors.flatblue,
+              // ),
+              // TextButton(
+              //   onPressed: () {
+              //     showModalBottomSheet(
+              //       context: context,
+              //       isScrollControlled: true,
+              //       backgroundColor: Colors.transparent,
+              //       builder: (context) {
+              //         return Padding(
+              //           padding: EdgeInsets.only(
+              //             bottom: MediaQuery.of(context).viewInsets.bottom,
+              //           ),
+              //           child: ShareAsPopup(),
+              //         );
+              //       },
+              //     );
+              //   },
+              //   child: Text(
+              //     'Share Transfer Details',
+              //     style: TextStyle(color: DefaultColors.flatblue, fontSize: 18),
+              //   ),
+              // ),
+              ShareActionRow(text: 'Share as Pdf', onTap: () {}),
+              SizedBox(width: screenWidth * 0.15),
+              ShareActionRow(text: 'Share as Image', onTap: () {}),
             ],
           ),
           SizedBox(height: screenHeight * 0.02),

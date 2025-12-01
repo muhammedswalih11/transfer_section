@@ -18,6 +18,7 @@ import '../../../within_own_account/presentation/widgets/limit_bottomsheet.dart'
 import '../../../within_own_account/presentation/widgets/limit_info-tile.dart';
 import '../../../within_own_account/presentation/widgets/select_account_field.dart';
 import '../../../within_own_account/presentation/widgets/terms_and_conditions_checkbox.dart';
+import '../controllers/account_selection_provider.dart';
 
 class WithinContactsPage extends ConsumerWidget {
   const WithinContactsPage({super.key});
@@ -76,7 +77,7 @@ class WithinContactsPage extends ConsumerWidget {
                     top: screenHeight * 0.050,
                     left: screenWidth * 0.040,
                     right: screenWidth * 0.040,
-                    bottom: screenHeight * 0.030,
+                    bottom: screenHeight * 0.045,
                   ),
                   decoration: BoxDecoration(
                     color: DefaultColors.white,
@@ -177,7 +178,8 @@ class WithinContactsPage extends ConsumerWidget {
                                     .state = {
                                   'id': result.name,
                                   'title': result.name,
-                                  'subtitle': accountNumber,
+                                  'accnumber':
+                                      accountNumber, // Changed from 'subtitle' to 'accnumber'
                                 };
                               }
                             },
@@ -273,7 +275,7 @@ class WithinContactsPage extends ConsumerWidget {
                           // SizedBox(height: screenHeight * 0.18),
                           SizedBox(
                             height: ref.watch(amountProvider).isEmpty
-                                ? screenHeight * 0.088
+                                ? screenHeight * 0.075
                                 : screenHeight * 0.02,
                           ),
                           Consumer(
@@ -331,7 +333,6 @@ class WithinContactsPage extends ConsumerWidget {
 
                                   SizedBox(height: screenHeight * 0.001),
 
-                                  // SECOND BOX: TOTAL DEBIT
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 20,
@@ -464,7 +465,7 @@ class WithinContactsPage extends ConsumerWidget {
                               );
                             },
                           ),
-                          SizedBox(height: screenHeight * 0.05),
+                          // SizedBox(height: screenHeight * 0.05),
                         ],
                       ),
                     ],

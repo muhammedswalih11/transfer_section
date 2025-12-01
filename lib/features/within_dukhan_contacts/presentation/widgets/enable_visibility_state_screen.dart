@@ -14,8 +14,8 @@ class EnableVisibilityStateScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return SizedBox(
-      height: screenHeight * 0.56,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -38,12 +38,11 @@ class EnableVisibilityStateScreen extends ConsumerWidget {
               ),
             ],
           ),
-          SizedBox(height: screenHeight * 0.020), // Reduced from 0.026
+          SizedBox(height: screenHeight * 0.020),
           VisibilitySelector(),
-          SizedBox(height: screenHeight * 0.020), // Reduced from 0.026
+          SizedBox(height: screenHeight * 0.020),
           LinkedAccount(),
-
-          Spacer(),
+          SizedBox(height: screenHeight * 0.04),
           ContinueButton(
             onPressed: () {
               final isVisible = ref.read(visibilityProvider);

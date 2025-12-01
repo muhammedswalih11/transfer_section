@@ -16,18 +16,19 @@ class InitialContent extends ConsumerWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final isVisible = ref.watch(visibilityProvider);
 
-    return SizedBox(
-      height: screenHeight * 0.56,
-      child: Center(
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+      child: Expanded(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            // SizedBox(height: screenHeight * 0.044),
-            // Show SVG only when no visibility option is selected
             if (isVisible == null)
               SvgPicture.asset(
                 'assets/images/Placeholders.svg',
                 width: screenWidth * 0.2,
-              ),
+              )
+            else
+              SizedBox(height: screenHeight * 0.04),
             SizedBox(
               width: screenWidth * 0.5,
               child: Text(
@@ -53,9 +54,17 @@ class InitialContent extends ConsumerWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: screenHeight * 0.07),
+            SizedBox(
+              height: isVisible == null
+                  ? screenHeight * 0.07
+                  : screenHeight * 0.04,
+            ),
             VisibilitySelector(),
-            Spacer(),
+            SizedBox(
+              height: isVisible == null
+                  ? screenHeight * 0.033
+                  : screenHeight * 0.11,
+            ),
             ContinueButton(
               onPressed: () {
                 final isVisible = ref.read(visibilityProvider);

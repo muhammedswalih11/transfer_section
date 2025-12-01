@@ -22,18 +22,6 @@ class ContactsScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Debug header
-          Container(
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'Contacts (${contacts.length})',
-              style: TextStyle(
-                fontSize: screenWidth * 0.04,
-                fontWeight: FontWeight.w600,
-                color: Colors.blue,
-              ),
-            ),
-          ),
           // All contacts in a single container
           Expanded(
             child: Container(
@@ -51,25 +39,35 @@ class ContactsScreen extends ConsumerWidget {
                         ),
                       ),
                     )
-                  : ListView.separated(
+                  : ListView.builder(
                       padding: EdgeInsets.zero,
                       itemCount: contacts.length,
-                      separatorBuilder: (_, __) => Divider(
-                        color: DefaultColors.grayTB.withAlpha(51),
-                        height: 1,
-                        indent: 16,
-                        endIndent: 16,
-                      ),
                       itemBuilder: (_, index) {
-                        return ContactTile(
-                          contact: contacts[index],
-                          onTap: () {
-                            print('Contact tapped: ${contacts[index].name}');
-                            // Set selected contact and close bottom sheet
-                            ref.read(selectedContactProvider.notifier).state =
-                                contacts[index];
-                            Navigator.pop(context, contacts[index]);
-                          },
+                        return Column(
+                          children: [
+                            ContactTile(
+                              contact: contacts[index],
+                              onTap: () {
+                                print(
+                                  'Contact tapped: ${contacts[index].name}',
+                                );
+                                // Set selected contact and close bottom sheet
+                                ref
+                                        .read(selectedContactProvider.notifier)
+                                        .state =
+                                    contacts[index];
+                                Navigator.pop(context, contacts[index]);
+                              },
+                            ),
+                            // Add divider after each item except the last one
+                            if (index < contacts.length - 1)
+                              Divider(
+                                color: DefaultColors.grayTB.withAlpha(51),
+                                height: 1,
+                                indent: 16,
+                                endIndent: 16,
+                              ),
+                          ],
                         );
                       },
                     ),

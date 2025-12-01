@@ -81,21 +81,22 @@ final beneficiariesSearchProvider =
       );
     });
 
-final isTransferEnabledProvider = Provider<bool>((ref) {
-  final from = ref.watch(selectedFromAccountProvider);
-  final to = ref.watch(toBenificiaryProvider);
+final isOwnAccountTransferEnabledProvider = Provider<bool>((ref) {
+  final fromAccount = ref.watch(selectedFromAccountProvider);
+  final toAccount = ref.watch(selectedToAccountProvider);
   final amount = ref.watch(amountProvider);
-  final purpose = ref.watch(selectedPurposeProvider);
-  final subPurpose = ref.watch(selectedSubPurposeProvider);
+  final termsAccepted = ref.watch(termsAcceptedProvider);
 
-  bool hasAmount = amount.isNotEmpty && double.tryParse(amount) != null;
-
-  // If purpose requires sub-purpose, check that too
-  bool subPurposeRequired = purpose != null && purpose['hasSubpurpose'] == true;
-
-  return from != null &&
-      to != null &&
-      hasAmount &&
-      purpose != null &&
-      (!subPurposeRequired || subPurpose != null);
+  return fromAccount != null &&
+      toAccount != null &&
+      amount.isNotEmpty &&
+      termsAccepted == true;
 });
+
+final selectedCurrencyCodeProvider = StateProvider<String>((ref) => "QAR");
+
+final selectedCurrencyIconProvider = StateProvider<String>(
+  (ref) => "assets/images/qatar.svg",
+);
+
+final tempCurrencySelectionProvider = StateProvider<String?>((ref) => null);

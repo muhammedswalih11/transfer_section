@@ -53,6 +53,7 @@ class ActionBottomSheet extends StatelessWidget {
 
           // Items
           _actionItem(
+            context: context,
             icon: Icons.repeat,
             title: "Standing Order",
             subtitle: "Set up repeated payments",
@@ -61,7 +62,8 @@ class ActionBottomSheet extends StatelessWidget {
           _divider(),
 
           _actionItem(
-            icon: Icons.edit,
+            context: context,
+            icon: Icons.edit_outlined,
             title: "Edit",
             subtitle: "Update beneficiary details",
             onTap: () {},
@@ -69,6 +71,7 @@ class ActionBottomSheet extends StatelessWidget {
           _divider(),
 
           _actionItem(
+            context: context,
             icon: Icons.delete_outline,
             title: "Delete",
             subtitle: "Remove this beneficiary",
@@ -77,6 +80,7 @@ class ActionBottomSheet extends StatelessWidget {
           _divider(),
 
           _actionItem(
+            context: context,
             icon: Icons.star_border,
             title: "Favourite",
             subtitle: "Add as a favourite",
@@ -97,11 +101,16 @@ class ActionBottomSheet extends StatelessWidget {
   }
 
   Widget _actionItem({
+    required BuildContext context,
     required IconData icon,
     required String title,
     required String subtitle,
     required VoidCallback onTap,
   }) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
+
     return InkWell(
       onTap: onTap,
       child: Row(
@@ -109,30 +118,33 @@ class ActionBottomSheet extends StatelessWidget {
         children: [
           // Circle icon
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(screenWidth * 0.03),
             decoration: BoxDecoration(
-              color: const Color(0xFFEAF1FB),
+              color: DefaultColors.white,
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, size: 22, color: Colors.black87),
+            child: Icon(icon, size: screenWidth * 0.06, color: Colors.black87),
           ),
-          const SizedBox(width: 15),
+          SizedBox(width: screenWidth * 0.04),
 
-          // Texts
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 16,
+                style: TextStyle(
+                  fontSize: screenWidth * 0.044,
                   fontWeight: FontWeight.w700,
+                  color: DefaultColors.black,
                 ),
               ),
-              const SizedBox(height: 3),
+              SizedBox(height: screenHeight * 0.003),
               Text(
                 subtitle,
-                style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                style: TextStyle(
+                  fontSize: screenWidth * 0.033,
+                  color: DefaultColors.grayBase,
+                ),
               ),
             ],
           ),

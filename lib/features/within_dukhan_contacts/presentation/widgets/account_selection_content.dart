@@ -13,8 +13,8 @@ class AccountSelectionContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return SizedBox(
-      height: screenHeight * 0.56,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -51,7 +51,7 @@ class AccountSelectionContent extends ConsumerWidget {
           ),
           SizedBox(height: screenHeight * 0.046),
           AccountSelector(),
-          Spacer(),
+          SizedBox(height: screenHeight * 0.12),
           ContinueButton(
             onPressed: () {
               ref.read(contentStepProvider.notifier).state = 3;

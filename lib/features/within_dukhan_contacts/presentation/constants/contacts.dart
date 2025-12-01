@@ -24,11 +24,6 @@ final List<ContactModel> contacts = [
     bank: 'Dukhan Bank (QA)',
   ),
   ContactModel(
-    name: "Fatima Hassan",
-    accountNo: 'XXXX3456',
-    bank: 'Dukhan Bank (QA)',
-  ),
-  ContactModel(
     name: "Omar Ibrahim",
     accountNo: 'XXXX7890',
     bank: 'Dukhan Bank (QA)',

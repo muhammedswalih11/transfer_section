@@ -70,7 +70,7 @@ class AccountPickerSheet extends StatelessWidget {
                   subtitle,
                   style: TextStyle(
                     fontSize: screenWidth * 0.035,
-                    color: DefaultColors.grayMedBase,
+                    color: DefaultColors.grayBase,
                   ),
                 ),
               ],
@@ -104,7 +104,7 @@ class AccountPickerSheet extends StatelessWidget {
                     acct['accnumber']!,
                     style: TextStyle(
                       fontSize: screenWidth * 0.036,
-                      color: DefaultColors.grayMedBase,
+                      color: DefaultColors.grayBase,
                     ),
                   ),
                   trailing: Text(

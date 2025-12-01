@@ -4,7 +4,6 @@ import 'package:transfer_section/core/utils/colors.dart';
 import 'package:transfer_section/features/within_dukhan_contacts/presentation/widgets/beneficiaries.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/datas/beneficiay_model.dart';
 
-import '../constants/contacts.dart';
 import '../controllers/account_selection_provider.dart';
 import 'account_selection_content.dart';
 import 'contacts_screen.dart';
@@ -74,7 +73,13 @@ class TransferBottomSheetWidget extends ConsumerWidget {
     print('BottomSheet - filter: $filter, step: $step');
 
     return Container(
-      color: DefaultColors.white,
+      decoration: BoxDecoration(
+        color: DefaultColors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(screenWidth * 0.05),
+          topRight: Radius.circular(screenWidth * 0.05),
+        ),
+      ),
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxHeight: screenHeight * 0.9, // Maximum height
@@ -94,7 +99,17 @@ class TransferBottomSheetWidget extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min, // Let column size itself
             children: [
-              //Header
+              Center(
+                child: Container(
+                  height: screenHeight * 0.006,
+                  width: screenWidth * 0.12,
+                  decoration: BoxDecoration(
+                    color: DefaultColors.graylight,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  margin: EdgeInsets.only(bottom: 14),
+                ),
+              ),
               Text(
                 "Select Beneficiary/Contact",
                 style: TextStyle(
@@ -109,31 +124,38 @@ class TransferBottomSheetWidget extends ConsumerWidget {
               //Benefeciries/Contacts filter section
               SelectionBarSection(
                 beneficiariesCount: _sampleBeneficiaries.length,
-                contactsCount: contacts.length,
+                contactsCount: 0, // Set contacts count to 0
               ),
               SizedBox(height: screenHeight * 0.020), // Reduced spacing
               //Display content based on selected filter
-              SizedBox(
-                height: screenHeight * 0.56, // Fixed height for consistency
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      if (filter == 'Beneficiaries')
-                        Beneficiaries(
-                          display: _sampleBeneficiaries,
-                          iconSize: 18,
+              Expanded(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            if (filter == 'Beneficiaries')
+                              Beneficiaries(
+                                display: _sampleBeneficiaries,
+                                iconSize: 18,
+                              ),
+                            if (filter == 'Contacts') ...[
+                              //Before pressing continue InitialContent is displayed
+                              //After pressing continue hides InitialContent
+                              if (step == 0) const InitialContent(),
+                              if (step == 1) const AccountSelectionContent(),
+                              if (step == 2)
+                                const DeactivateVisibiltyStateScreen(),
+                              if (step == 3) const ContactsScreen(),
+                              if (step == 4)
+                                const EnableVisibilityStateScreen(),
+                            ],
+                          ],
                         ),
-                      if (filter == 'Contacts') ...[
-                        //Before pressing continue InitialContent is displayed
-                        //After pressing continue hides InitialContent
-                        if (step == 0) const InitialContent(),
-                        if (step == 1) const AccountSelectionContent(),
-                        if (step == 2) const DeactivateVisibiltyStateScreen(),
-                        if (step == 3) const ContactsScreen(),
-                        if (step == 4) const EnableVisibilityStateScreen(),
-                      ],
-                    ],
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

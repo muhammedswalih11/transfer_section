@@ -6,6 +6,7 @@ import 'package:transfer_section/features/within_dukhan/presentation/widgets/pur
 
 import '../../../../core/utils/colors.dart';
 
+import '../../../within_dukhan_contacts/presentation/controllers/account_selection_provider.dart';
 import '../../../within_own_account/presentation/pages/confirm_page.dart';
 import '../../../within_own_account/presentation/providers/dropdown_provider.dart';
 import '../../../within_own_account/presentation/widgets/account_picker_sheet.dart';
@@ -78,7 +79,7 @@ class WithinDukhanPage extends ConsumerWidget {
                     top: screenHeight * 0.050,
                     left: screenWidth * 0.040,
                     right: screenWidth * 0.040,
-                    bottom: screenHeight * 0.020,
+                    bottom: screenHeight * 0.045,
                   ),
                   decoration: BoxDecoration(
                     color: DefaultColors.white,
@@ -268,7 +269,7 @@ class WithinDukhanPage extends ConsumerWidget {
                           // SizedBox(height: screenHeight * 0.18),
                           SizedBox(
                             height: ref.watch(amountProvider).isEmpty
-                                ? screenHeight * 0.088
+                                ? screenHeight * 0.075
                                 : screenHeight * 0.02,
                           ),
                           Consumer(

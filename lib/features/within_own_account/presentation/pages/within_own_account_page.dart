@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/account_picker_sheet.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/amount_filed.dart';
-import 'package:transfer_section/features/within_own_account/presentation/widgets/choose_currency_sheet.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/custom_input_field.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/info_note.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/limit_bottomsheet.dart'
@@ -72,7 +71,7 @@ class WithinOwnAccountPage extends ConsumerWidget {
                     top: screenHeight * 0.050,
                     left: screenWidth * 0.040,
                     right: screenWidth * 0.040,
-                    bottom: screenHeight * 0.020,
+                    bottom: screenHeight * 0.045,
                   ),
                   decoration: BoxDecoration(
                     color: DefaultColors.white,
@@ -194,58 +193,71 @@ class WithinOwnAccountPage extends ConsumerWidget {
                           ),
                           SizedBox(height: screenHeight * 0.032),
                           RemarksField(controller: remarksController),
-                          SizedBox(height: screenHeight * 0.18),
+                          SizedBox(height: screenHeight * 0.16),
                           InfoNote(),
                           SizedBox(height: screenHeight * 0.02),
                           TermsAndConditionsCheckbox(),
                           SizedBox(height: screenHeight * 0.02),
-                          SizedBox(
-                            width: screenWidth,
+                          Consumer(
+                            builder: (context, ref, _) {
+                              final isEnabled = ref.watch(
+                                isOwnAccountTransferEnabledProvider,
+                              );
 
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (selectedFromAccount == null ||
-                                    selectedToAccount == null)
-                                  return;
+                              return SizedBox(
+                                width: screenWidth,
 
-                                final data = {
-                                  "fromAccount":
-                                      "${selectedFromAccount['title']} ${selectedFromAccount['accnumber']}",
-                                  "toAccount":
-                                      "${selectedToAccount['title']} ${selectedToAccount['accnumber']}",
-                                  "amount": amountController.text,
-                                  "remarks": remarksController.text,
-                                  "reference":
-                                      "REF${DateTime.now().millisecondsSinceEpoch}",
-                                };
+                                child: ElevatedButton(
+                                  onPressed: isEnabled
+                                      ? () {
+                                          if (selectedFromAccount == null ||
+                                              selectedToAccount == null)
+                                            return;
 
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        ConfirmPage(transferData: data),
+                                          final data = {
+                                            "fromAccount":
+                                                "${selectedFromAccount['title']} ${selectedFromAccount['accnumber']}",
+                                            "toAccount":
+                                                "${selectedToAccount['title']} ${selectedToAccount['accnumber']}",
+                                            "amount": amountController.text,
+                                            "remarks": remarksController.text,
+                                            "reference":
+                                                "REF${DateTime.now().millisecondsSinceEpoch}",
+                                          };
+
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => ConfirmPage(
+                                                transferData: data,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      : null,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: isEnabled
+                                        ? DefaultColors.dashboarddarkBlue
+                                        : DefaultColors.graylight,
+
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: screenHeight * 0.013,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    elevation: 0,
                                   ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: DefaultColors.graylight,
-
-                                padding: EdgeInsets.symmetric(
-                                  vertical: screenHeight * 0.013,
+                                  child: Text(
+                                    'Transfer',
+                                    style: TextStyle(
+                                      color: DefaultColors.white,
+                                      fontSize: screenWidth * 0.043,
+                                    ),
+                                  ),
                                 ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                elevation: 0,
-                              ),
-                              child: Text(
-                                'Transfer',
-                                style: TextStyle(
-                                  color: DefaultColors.white,
-                                  fontSize: screenWidth * 0.043,
-                                ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
                         ],
                       ),

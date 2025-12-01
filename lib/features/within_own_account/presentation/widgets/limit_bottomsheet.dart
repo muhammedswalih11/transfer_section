@@ -186,8 +186,9 @@ class LimitsBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     return Container(
       padding: EdgeInsets.all(screenWidth * 0.05),
       decoration: const BoxDecoration(
@@ -200,7 +201,6 @@ class LimitsBottomSheet extends StatelessWidget {
         children: [
           const SizedBox(height: 12),
 
-          /// 🔥 HEADER
           Text(
             "Limits",
             style: TextStyle(
@@ -212,42 +212,66 @@ class LimitsBottomSheet extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          /// 🔥 DETAILS BOX (grey border container)
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
+            padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: DefaultColors.grayE5),
-              color: Colors.grey.shade50,
+              color: DefaultColors.white,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// MIN LIMIT
-                Text(
-                  "Minimum amount per transaction",
-                  style: TextStyle(fontSize: 15, color: Colors.black54),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.04,
+                    bottom: screenHeight * 0.01,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Minimum amount per transaction",
+                        style: TextStyle(fontSize: 15, color: Colors.black54),
+                      ),
+                      SizedBox(height: screenHeight * 0.008),
+                      Text(
+                        "0.01 QAR",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 6),
-                Text(
-                  "0.01 QAR",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                ),
-
-                const SizedBox(height: 20),
+                // SizedBox(height: 20),
                 Divider(color: Colors.grey.shade400),
-                const SizedBox(height: 20),
 
-                /// MAX LIMIT
-                Text(
-                  "Maximum amount per transaction",
-                  style: TextStyle(fontSize: 15, color: Colors.black54),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  "100,000.00 QAR",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: screenWidth * 0.04,
+                    top: screenHeight * 0.01,
+                    bottom: screenHeight * 0.01,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Maximum amount per transaction",
+                        style: TextStyle(fontSize: 15, color: Colors.black54),
+                      ),
+                      SizedBox(height: screenHeight * 0.008),
+                      Text(
+                        "100,000.00 QAR",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
