@@ -107,14 +107,16 @@ class AccountPickerSheet extends StatelessWidget {
                       color: DefaultColors.grayBase,
                     ),
                   ),
-                  trailing: Text(
-                    acct['balance']!,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: screenWidth * 0.035,
-                      color: DefaultColors.black,
-                    ),
-                  ),
+                  trailing: disabled
+                      ? null
+                      : Text(
+                          acct['balance']!,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: screenWidth * 0.035,
+                            color: DefaultColors.black,
+                          ),
+                        ),
                   onTap: disabled ? null : () => onSelected(acct),
                 ),
               );
