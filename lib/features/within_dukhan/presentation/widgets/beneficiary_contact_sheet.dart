@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/widgets/beneficiary_header.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/widgets/beneficiary_searchfield.dart';
+import 'package:transfer_section/features/within_dukhan/presentation/widgets/beneficiary_tile.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../within_own_account/presentation/providers/dropdown_provider.dart';

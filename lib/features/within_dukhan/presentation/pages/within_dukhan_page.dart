@@ -7,7 +7,7 @@ import 'package:transfer_section/features/within_dukhan/presentation/widgets/pur
 import '../../../../core/utils/colors.dart';
 
 import '../../../within_dukhan_contacts/presentation/controllers/account_selection_provider.dart';
-import '../../../within_own_account/presentation/pages/confirm_page.dart';
+import '../../../within_own_account/presentation/widgets/confirm_page.dart';
 import '../../../within_own_account/presentation/providers/dropdown_provider.dart';
 import '../../../within_own_account/presentation/widgets/account_picker_sheet.dart';
 import '../../../within_own_account/presentation/widgets/amount_filed.dart';
@@ -127,25 +127,27 @@ class WithinDukhanPage extends ConsumerWidget {
                             },
                           ),
 
-                          SizedBox(
-                            height: screenHeight * 0.017,
-                            child: selectedFromAccount == null
-                                ? null
-                                : Padding(
-                                    padding: EdgeInsets.only(
-                                      left: screenWidth * 0.03,
-                                    ),
-                                    child: Text(
-                                      selectedFromAccount['balance'] ?? '',
-                                      style: TextStyle(
-                                        fontSize: screenWidth * 0.030,
-                                        fontWeight: FontWeight.w600,
-                                        color: DefaultColors.black,
-                                      ),
-                                    ),
-                                  ),
-                          ),
-                          SizedBox(height: screenHeight * 0.015),
+                          if (selectedFromAccount != null) ...[
+                            SizedBox(height: screenHeight * 0.01),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: screenWidth * 0.03,
+                              ),
+                              child: Text(
+                                selectedFromAccount['balance'] ?? '',
+                                style: TextStyle(
+                                  fontSize: screenWidth * 0.030,
+                                  fontWeight: FontWeight.w600,
+                                  color: DefaultColors.black,
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: screenHeight * 0.03),
+                          ] else ...[
+                            SizedBox(height: screenHeight * 0.036),
+                          ],
+                          // SizedBox(height: screenHeight * 0.015),
                           AccountInputField(
                             labeltext: 'To Beneficiary/Contact',
 

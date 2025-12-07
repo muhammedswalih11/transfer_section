@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/pages/within_dukhan_page.dart';
-import 'package:transfer_section/features/within_dukhan_contacts/presentation/pages/transfer_bt_sheettest.dart';
 import 'package:transfer_section/features/within_dukhan_contacts/presentation/pages/within_contacts_page.dart';
-import 'package:transfer_section/features/within_own_account/presentation/pages/confirm_page.dart';
+import 'package:transfer_section/features/within_own_account/presentation/widgets/confirm_page.dart';
 import 'package:transfer_section/features/within_own_account/presentation/pages/within_own_account_page.dart';
 
 void main() {
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: WithinOwnAccountPage(),
+      home: WithinContactsPage(),
     );
   }
 }

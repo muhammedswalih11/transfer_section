@@ -12,7 +12,7 @@ import '../providers/dropdown_provider.dart';
 import '../widgets/select_account_field.dart';
 import '../widgets/remarks_field.dart';
 import '../widgets/terms_and_conditions_checkbox.dart';
-import 'confirm_page.dart';
+import '../widgets/confirm_page.dart';
 
 class WithinOwnAccountPage extends ConsumerWidget {
   const WithinOwnAccountPage({super.key});
@@ -119,25 +119,26 @@ class WithinOwnAccountPage extends ConsumerWidget {
                             },
                           ),
 
-                          SizedBox(
-                            height: screenHeight * 0.017,
-                            child: selectedFromAccount == null
-                                ? null
-                                : Padding(
-                                    padding: EdgeInsets.only(
-                                      left: screenWidth * 0.03,
-                                    ),
-                                    child: Text(
-                                      selectedFromAccount['balance'] ?? '',
-                                      style: TextStyle(
-                                        fontSize: screenWidth * 0.030,
-                                        fontWeight: FontWeight.w600,
-                                        color: DefaultColors.black,
-                                      ),
-                                    ),
-                                  ),
-                          ),
-                          SizedBox(height: screenHeight * 0.016),
+                          if (selectedFromAccount != null) ...[
+                            SizedBox(height: screenHeight * 0.01),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: screenWidth * 0.03,
+                              ),
+                              child: Text(
+                                selectedFromAccount['balance'] ?? '',
+                                style: TextStyle(
+                                  fontSize: screenWidth * 0.030,
+                                  fontWeight: FontWeight.w600,
+                                  color: DefaultColors.black,
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: screenHeight * 0.03),
+                          ] else ...[
+                            SizedBox(height: screenHeight * 0.036),
+                          ],
                           AccountInputField(
                             labeltext: 'To Account',
 
@@ -174,7 +175,7 @@ class WithinOwnAccountPage extends ConsumerWidget {
                               );
                             },
                           ),
-                          SizedBox(height: screenHeight * 0.042),
+                          SizedBox(height: screenHeight * 0.036),
                           AmountFiled(controller: amountController),
                           SizedBox(height: screenHeight * 0.008),
                           LimitInfoTile(

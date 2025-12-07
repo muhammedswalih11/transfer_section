@@ -7,6 +7,7 @@ import '../../../../core/utils/colors.dart';
 import '../../../within_own_account/presentation/widgets/share_action_row.dart';
 import '../../../within_own_account/presentation/widgets/share_as_popup.dart';
 import '../../../within_own_account/presentation/widgets/transfer_details_card.dart';
+import '../../../within_own_account/presentation/widgets/universal_pdf.dart';
 
 class WithinDukhanSucces extends StatelessWidget {
   final Map<String, String> data;
@@ -204,7 +205,34 @@ class WithinDukhanSucces extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ShareActionRow(text: 'Share as Pdf', onTap: () {}),
+              ShareActionRow(
+                text: 'Share as Pdf',
+                onTap: () async {
+                  final pdfFile = await generateReceiptPdf(
+                    headerTitle: "Within Dukhan Transfer Receipt",
+                    dateTime: _formattedDateTime(),
+                    sections: [
+                      PdfSection("From Account", data["fromAccount"]!),
+                      PdfSection(
+                        "To Beneficiary/Contact",
+                        data["toBeneficiaryContact"]!,
+                      ),
+                      PdfSection(
+                        "Total Debit Amount",
+                        "${data["totalAmount"]} QAR (includes ${data["fee"]} QAR fees)",
+                      ),
+                      PdfSection("Reference Number", data["reference"]!),
+                      PdfSection("Purpose of Transfer", data["purpose"]!),
+                      PdfSection("Remarks", data["remarks"] ?? "-"),
+                    ],
+                    fileName: "within_dukhan_receipt.pdf",
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("PDF created: ${pdfFile.path}")),
+                  );
+                },
+              ),
               SizedBox(width: screenWidth * 0.15),
               ShareActionRow(text: 'Share as Image', onTap: () {}),
             ],

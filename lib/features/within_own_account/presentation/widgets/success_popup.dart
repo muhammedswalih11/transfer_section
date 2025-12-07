@@ -7,6 +7,11 @@ import 'package:transfer_section/features/within_own_account/presentation/widget
 import 'package:transfer_section/features/within_own_account/presentation/widgets/share_as_popup.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/transfer_details_card.dart';
 
+import 'image_converter.dart';
+import 'image_sharing_sheet.dart';
+import 'share_option_sheet.dart';
+import 'universal_pdf.dart';
+
 class TransferSuccessPopup extends StatelessWidget {
   final Map<String, String> data;
 
@@ -216,9 +221,73 @@ class TransferSuccessPopup extends StatelessWidget {
               //     style: TextStyle(color: DefaultColors.flatblue, fontSize: 18),
               //   ),
               // ),
-              ShareActionRow(text: 'Share as Pdf', onTap: () {}),
+              // ShareActionRow(
+              //   text: 'Share as Pdf',
+              //   onTap: () async {
+              //     final pdfFile = await generateReceiptPdf(
+              //       headerTitle: "Transfer Receipt",
+              //       dateTime: _formattedDateTime(),
+              //       sections: [
+              //         PdfSection("From Account", data["fromAccount"]!),
+              //         PdfSection("To Account", data["toAccount"]!),
+              //         PdfSection("Amount", "${data["amount"]} QAR"),
+              //         PdfSection("Reference Number", data["reference"]!),
+              //         PdfSection("Remarks", data["remarks"] ?? "-"),
+              //       ],
+              //     );
+
+              //     ScaffoldMessenger.of(context).showSnackBar(
+              //       SnackBar(content: Text("PDF created: ${pdfFile.path}")),
+              //     );
+              //   },
+              // ),
+              ShareActionRow(
+                text: 'Share as Pdf',
+                onTap: () {
+                  ShareOptionsSheet.show(
+                    context: context,
+                    onGeneratePdf: () async {
+                      return await generateReceiptPdf(
+                        headerTitle: "Transfer Receipt",
+                        dateTime: _formattedDateTime(),
+                        sections: [
+                          PdfSection("From Account", data["fromAccount"]!),
+                          PdfSection("To Account", data["toAccount"]!),
+                          PdfSection("Amount", "${data["amount"]} QAR"),
+                          PdfSection("Reference Number", data["reference"]!),
+                          PdfSection("Remarks", data["remarks"] ?? "-"),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+
               SizedBox(width: screenWidth * 0.15),
-              ShareActionRow(text: 'Share as Image', onTap: () {}),
+              // ShareActionRow(text: 'Share as Image', onTap: () {}),
+              ShareActionRow(
+                text: "Share as Image",
+                onTap: () {
+                  ShareOptionsImageSheet.show(
+                    context: context,
+                    onGenerateImage: () async {
+                      final pdf = await generateReceiptPdf(
+                        headerTitle: "Transfer Receipt",
+                        dateTime: _formattedDateTime(),
+                        sections: [
+                          PdfSection("From Account", data["fromAccount"]!),
+                          PdfSection("To Account", data["toAccount"]!),
+                          PdfSection("Amount", "${data["amount"]} QAR"),
+                          PdfSection("Reference Number", data["reference"]!),
+                          PdfSection("Remarks", data["remarks"] ?? "-"),
+                        ],
+                      );
+
+                      return convertPdfToImage(pdf);
+                    },
+                  );
+                },
+              ),
             ],
           ),
           SizedBox(height: screenHeight * 0.02),
