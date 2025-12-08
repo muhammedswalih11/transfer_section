@@ -83,391 +83,375 @@ class WithinContactsPage extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(28),
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AccountInputField(
-                            labeltext: 'From Account',
+                      AccountInputField(
+                        labeltext: 'From Account',
 
-                            selectedValue: selectedFromAccount,
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(25),
-                                  ),
-                                ),
-                                builder: (_) {
-                                  return AccountPickerSheet(
-                                    disabledAccountId: selectedToAccount?['id'],
+                        selectedValue: selectedFromAccount,
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25),
+                              ),
+                            ),
+                            builder: (_) {
+                              return AccountPickerSheet(
+                                disabledAccountId: selectedToAccount?['id'],
 
-                                    title: "Select From Account",
-                                    subtitle:
-                                        "Choose the account you'd like to transfer from",
-                                    onSelected: (acct) {
-                                      ref
-                                              .read(
-                                                selectedFromAccountProvider
-                                                    .notifier,
-                                              )
-                                              .state =
-                                          acct;
+                                title: "Select From Account",
+                                subtitle:
+                                    "Choose the account you'd like to transfer from",
+                                onSelected: (acct) {
+                                  ref
+                                          .read(
+                                            selectedFromAccountProvider
+                                                .notifier,
+                                          )
+                                          .state =
+                                      acct;
 
-                                      Navigator.pop(context);
-                                    },
-                                  );
+                                  Navigator.pop(context);
                                 },
                               );
                             },
-                          ),
+                          );
+                        },
+                      ),
 
-                          if (selectedFromAccount != null) ...[
-                            SizedBox(height: screenHeight * 0.01),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: screenWidth * 0.03,
+                      if (selectedFromAccount != null) ...[
+                        SizedBox(height: screenHeight * 0.01),
+                        Padding(
+                          padding: EdgeInsets.only(left: screenWidth * 0.03),
+                          child: Text(
+                            selectedFromAccount['balance'] ?? '',
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.030,
+                              fontWeight: FontWeight.w600,
+                              color: DefaultColors.black,
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: screenHeight * 0.03),
+                      ] else ...[
+                        SizedBox(height: screenHeight * 0.036),
+                      ],
+                      AccountInputField(
+                        labeltext: 'To Beneficiary/Contact',
+
+                        selectedValue: selectedToBeneficiary,
+                        onTap: () async {
+                          final result = await showModalBottomSheet<dynamic>(
+                            context: context,
+                            isScrollControlled: true,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25),
+                              ),
+                            ),
+                            builder: (_) {
+                              return TransferBottomSheetWidget();
+                            },
+                          );
+
+                          if (result != null) {
+                            // Handle different result types
+                            String accountNumber = '';
+                            if (result is ContactModel) {
+                              accountNumber = result.accountNo;
+                            } else {
+                              // Assume it's BeneficiaryModel
+                              accountNumber = result.accNumber;
+                            }
+
+                            ref.read(toBenificiaryProvider.notifier).state = {
+                              'id': result.name,
+                              'title': result.name,
+                              'accnumber':
+                                  accountNumber, // Changed from 'subtitle' to 'accnumber'
+                            };
+                          }
+                        },
+                      ),
+                      SizedBox(height: screenHeight * 0.032),
+                      AmountFiled(controller: amountController),
+                      SizedBox(height: screenHeight * 0.008),
+                      LimitInfoTile(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(22),
+                              ),
+                            ),
+                            isScrollControlled: true,
+                            builder: (_) => LimitsBottomSheet(),
+                          );
+                        },
+                      ),
+                      SizedBox(height: screenHeight * 0.032),
+                      PurposeOfTransfer(
+                        labeltext: 'Purpose of Transfer',
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(22),
+                              ),
+                            ),
+                            isScrollControlled: true,
+                            builder: (_) => UniversalPurposeSheet(
+                              isSubPurpose: false,
+                              onPurposeSelected: (purpose) {
+                                ref
+                                        .read(selectedPurposeProvider.notifier)
+                                        .state =
+                                    purpose;
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                      Consumer(
+                        builder: (context, ref, _) {
+                          final selectedPurpose = ref.watch(
+                            selectedPurposeProvider,
+                          );
+
+                          if (selectedPurpose == null) return SizedBox.shrink();
+
+                          return Column(
+                            children: [
+                              SizedBox(height: screenHeight * 0.032),
+
+                              SubPurpose(
+                                labeltext: 'Sub purpose of Transfer',
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(22),
+                                      ),
+                                    ),
+                                    isScrollControlled: true,
+                                    builder: (_) => UniversalPurposeSheet(
+                                      isSubPurpose: true,
+                                      onSubPurposeSelected: (subPurpose) {
+                                        ref
+                                                .read(
+                                                  selectedSubPurposeProvider
+                                                      .notifier,
+                                                )
+                                                .state =
+                                            subPurpose;
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                      SizedBox(height: screenHeight * 0.032),
+                      RemarksField(controller: remarksController),
+                      // SizedBox(height: screenHeight * 0.18),
+                      SizedBox(
+                        height: ref.watch(amountProvider).isEmpty
+                            ? screenHeight * 0.075
+                            : screenHeight * 0.02,
+                      ),
+                      Consumer(
+                        builder: (context, ref, _) {
+                          final amount = ref.watch(amountProvider);
+
+                          if (amount.isEmpty) return SizedBox.shrink();
+
+                          // Convert amount to double safely
+                          final amt = double.tryParse(amount) ?? 0.0;
+
+                          final fee = 4.00; // fixed or dynamic later
+                          final total = amt + fee;
+
+                          return Column(
+                            children: [
+                              SizedBox(height: screenHeight * 0.02),
+
+                              // FIRST BOX: FEES
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 18,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: DefaultColors.lightblue1,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(16),
+                                    topRight: Radius.circular(16),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Fees",
+                                      style: TextStyle(
+                                        fontSize: screenWidth * 0.035,
+                                        fontWeight: FontWeight.w400,
+                                        color: DefaultColors.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${fee.toStringAsFixed(2)} QAR",
+                                      style: TextStyle(
+                                        fontSize: screenWidth * 0.040,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              SizedBox(height: screenHeight * 0.001),
+
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 18,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: DefaultColors.lightblue1,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(16),
+                                    bottomRight: Radius.circular(16),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Total Debit Amount",
+                                      style: TextStyle(
+                                        fontSize: screenWidth * 0.035,
+                                        fontWeight: FontWeight.w400,
+                                        color: DefaultColors.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${total.toStringAsFixed(2)} QAR",
+                                      style: TextStyle(
+                                        fontSize: screenWidth * 0.040,
+                                        fontWeight: FontWeight.w700,
+                                        color: DefaultColors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: screenHeight * 0.016),
+                            ],
+                          );
+                        },
+                      ),
+
+                      InfoNote(),
+                      SizedBox(height: screenHeight * 0.02),
+                      TermsAndConditionsCheckbox(),
+                      SizedBox(height: screenHeight * 0.02),
+                      Consumer(
+                        builder: (context, ref, _) {
+                          final isEnabled = ref.watch(
+                            isTransferEnabledProvider,
+                          );
+                          return SizedBox(
+                            width: screenWidth,
+
+                            child: ElevatedButton(
+                              onPressed: isEnabled
+                                  ? () {
+                                      if (!isEnabled) return;
+                                      final selectedPurpose = ref.read(
+                                        selectedPurposeProvider,
+                                      );
+                                      final selectedSubPurpose = ref.read(
+                                        selectedSubPurposeProvider,
+                                      );
+                                      final amount = amountController.text;
+
+                                      final fee = 4.00;
+                                      final total =
+                                          (double.tryParse(amount) ?? 0) + fee;
+                                      final Map<String, String> data = {
+                                        "fromAccount":
+                                            "${selectedFromAccount!['title']} ${selectedFromAccount['accnumber']}",
+
+                                        "toBeneficiaryContact":
+                                            "${selectedToBeneficiary?['title']} ${selectedToBeneficiary?['subtitle']}",
+
+                                        "amount": amountController
+                                            .text, // user entered amount only
+                                        "fee": fee.toStringAsFixed(2), // 4.00
+
+                                        "totalAmount": total.toStringAsFixed(
+                                          2,
+                                        ), // amount + fee
+
+                                        "purpose":
+                                            "${selectedPurpose?['title'] ?? ''}${selectedSubPurpose != null ? " - $selectedSubPurpose" : ""}",
+
+                                        "remarks": remarksController.text,
+
+                                        "reference":
+                                            "REF${DateTime.now().millisecondsSinceEpoch}",
+                                      };
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              WithinDukhanConfirmpage(
+                                                transferDataOfWithinDukhan:
+                                                    data,
+                                              ),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: isEnabled
+                                    ? DefaultColors.dashboarddarkBlue
+                                    : DefaultColors.graylight,
+
+                                padding: EdgeInsets.symmetric(
+                                  vertical: screenHeight * 0.013,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                elevation: 0,
                               ),
                               child: Text(
-                                selectedFromAccount['balance'] ?? '',
+                                'Transfer',
                                 style: TextStyle(
-                                  fontSize: screenWidth * 0.030,
-                                  fontWeight: FontWeight.w600,
-                                  color: DefaultColors.black,
+                                  color: DefaultColors.white,
+                                  fontSize: screenWidth * 0.043,
                                 ),
                               ),
                             ),
-
-                            SizedBox(height: screenHeight * 0.03),
-                          ] else ...[
-                            SizedBox(height: screenHeight * 0.036),
-                          ],
-                          AccountInputField(
-                            labeltext: 'To Beneficiary/Contact',
-
-                            selectedValue: selectedToBeneficiary,
-                            onTap: () async {
-                              final result =
-                                  await showModalBottomSheet<dynamic>(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(25),
-                                      ),
-                                    ),
-                                    builder: (_) {
-                                      return TransferBottomSheetWidget();
-                                    },
-                                  );
-
-                              if (result != null) {
-                                // Handle different result types
-                                String accountNumber = '';
-                                if (result is ContactModel) {
-                                  accountNumber = result.accountNo;
-                                } else {
-                                  // Assume it's BeneficiaryModel
-                                  accountNumber = result.accNumber;
-                                }
-
-                                ref
-                                    .read(toBenificiaryProvider.notifier)
-                                    .state = {
-                                  'id': result.name,
-                                  'title': result.name,
-                                  'accnumber':
-                                      accountNumber, // Changed from 'subtitle' to 'accnumber'
-                                };
-                              }
-                            },
-                          ),
-                          SizedBox(height: screenHeight * 0.032),
-                          AmountFiled(controller: amountController),
-                          SizedBox(height: screenHeight * 0.008),
-                          LimitInfoTile(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(22),
-                                  ),
-                                ),
-                                isScrollControlled: true,
-                                builder: (_) => LimitsBottomSheet(),
-                              );
-                            },
-                          ),
-                          SizedBox(height: screenHeight * 0.032),
-                          PurposeOfTransfer(
-                            labeltext: 'Purpose of Transfer',
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(22),
-                                  ),
-                                ),
-                                isScrollControlled: true,
-                                builder: (_) => UniversalPurposeSheet(
-                                  isSubPurpose: false,
-                                  onPurposeSelected: (purpose) {
-                                    ref
-                                            .read(
-                                              selectedPurposeProvider.notifier,
-                                            )
-                                            .state =
-                                        purpose;
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                          Consumer(
-                            builder: (context, ref, _) {
-                              final selectedPurpose = ref.watch(
-                                selectedPurposeProvider,
-                              );
-
-                              if (selectedPurpose == null)
-                                return SizedBox.shrink();
-
-                              return Column(
-                                children: [
-                                  SizedBox(height: screenHeight * 0.032),
-
-                                  SubPurpose(
-                                    labeltext: 'Sub purpose of Transfer',
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(22),
-                                          ),
-                                        ),
-                                        isScrollControlled: true,
-                                        builder: (_) => UniversalPurposeSheet(
-                                          isSubPurpose: true,
-                                          onSubPurposeSelected: (subPurpose) {
-                                            ref
-                                                    .read(
-                                                      selectedSubPurposeProvider
-                                                          .notifier,
-                                                    )
-                                                    .state =
-                                                subPurpose;
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                          SizedBox(height: screenHeight * 0.032),
-                          RemarksField(controller: remarksController),
-                          // SizedBox(height: screenHeight * 0.18),
-                          SizedBox(
-                            height: ref.watch(amountProvider).isEmpty
-                                ? screenHeight * 0.075
-                                : screenHeight * 0.02,
-                          ),
-                          Consumer(
-                            builder: (context, ref, _) {
-                              final amount = ref.watch(amountProvider);
-
-                              if (amount.isEmpty) return SizedBox.shrink();
-
-                              // Convert amount to double safely
-                              final amt = double.tryParse(amount) ?? 0.0;
-
-                              final fee = 4.00; // fixed or dynamic later
-                              final total = amt + fee;
-
-                              return Column(
-                                children: [
-                                  SizedBox(height: screenHeight * 0.02),
-
-                                  // FIRST BOX: FEES
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 18,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: DefaultColors.lightblue1,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(16),
-                                        topRight: Radius.circular(16),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Fees",
-                                          style: TextStyle(
-                                            fontSize: screenWidth * 0.035,
-                                            fontWeight: FontWeight.w400,
-                                            color: DefaultColors.black,
-                                          ),
-                                        ),
-                                        Text(
-                                          "${fee.toStringAsFixed(2)} QAR",
-                                          style: TextStyle(
-                                            fontSize: screenWidth * 0.040,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  SizedBox(height: screenHeight * 0.001),
-
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 18,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: DefaultColors.lightblue1,
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(16),
-                                        bottomRight: Radius.circular(16),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Total Debit Amount",
-                                          style: TextStyle(
-                                            fontSize: screenWidth * 0.035,
-                                            fontWeight: FontWeight.w400,
-                                            color: DefaultColors.black,
-                                          ),
-                                        ),
-                                        Text(
-                                          "${total.toStringAsFixed(2)} QAR",
-                                          style: TextStyle(
-                                            fontSize: screenWidth * 0.040,
-                                            fontWeight: FontWeight.w700,
-                                            color: DefaultColors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: screenHeight * 0.016),
-                                ],
-                              );
-                            },
-                          ),
-
-                          InfoNote(),
-                          SizedBox(height: screenHeight * 0.02),
-                          TermsAndConditionsCheckbox(),
-                          SizedBox(height: screenHeight * 0.02),
-                          Consumer(
-                            builder: (context, ref, _) {
-                              final isEnabled = ref.watch(
-                                isTransferEnabledProvider,
-                              );
-                              return SizedBox(
-                                width: screenWidth,
-
-                                child: ElevatedButton(
-                                  onPressed: isEnabled
-                                      ? () {
-                                          if (!isEnabled) return;
-                                          final selectedPurpose = ref.read(
-                                            selectedPurposeProvider,
-                                          );
-                                          final selectedSubPurpose = ref.read(
-                                            selectedSubPurposeProvider,
-                                          );
-                                          final amount = amountController.text;
-
-                                          final fee = 4.00;
-                                          final total =
-                                              (double.tryParse(amount) ?? 0) +
-                                              fee;
-                                          final Map<String, String> data = {
-                                            "fromAccount":
-                                                "${selectedFromAccount!['title']} ${selectedFromAccount['accnumber']}",
-
-                                            "toBeneficiaryContact":
-                                                "${selectedToBeneficiary?['title']} ${selectedToBeneficiary?['subtitle']}",
-
-                                            "amount": amountController
-                                                .text, // user entered amount only
-                                            "fee": fee.toStringAsFixed(
-                                              2,
-                                            ), // 4.00
-
-                                            "totalAmount": total
-                                                .toStringAsFixed(
-                                                  2,
-                                                ), // amount + fee
-
-                                            "purpose":
-                                                "${selectedPurpose?['title'] ?? ''}${selectedSubPurpose != null ? " - $selectedSubPurpose" : ""}",
-
-                                            "remarks": remarksController.text,
-
-                                            "reference":
-                                                "REF${DateTime.now().millisecondsSinceEpoch}",
-                                          };
-
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (_) =>
-                                                  WithinDukhanConfirmpage(
-                                                    transferDataOfWithinDukhan:
-                                                        data,
-                                                  ),
-                                            ),
-                                          );
-                                        }
-                                      : null,
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: isEnabled
-                                        ? DefaultColors.dashboarddarkBlue
-                                        : DefaultColors.graylight,
-
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: screenHeight * 0.013,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    elevation: 0,
-                                  ),
-                                  child: Text(
-                                    'Transfer',
-                                    style: TextStyle(
-                                      color: DefaultColors.white,
-                                      fontSize: screenWidth * 0.043,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          // SizedBox(height: screenHeight * 0.05),
-                        ],
+                          );
+                        },
                       ),
+                      // SizedBox(height: screenHeight * 0.05),
                     ],
                   ),
                 ),

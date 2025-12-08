@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:transfer_section/core/utils/beneficiary.dart';
 import 'package:transfer_section/core/utils/colors.dart';
 import 'package:transfer_section/features/within_dukhan_contacts/presentation/widgets/beneficiaries.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/datas/beneficiay_model.dart';
 
+import '../../data/beneficiary_model.dart';
 import '../controllers/account_selection_provider.dart';
 import 'account_selection_content.dart';
 import 'contacts_screen.dart';
@@ -13,57 +15,61 @@ import 'initial_content.dart';
 import 'search_bar_section.dart';
 import 'selection_section.dart';
 
-class TransferBottomSheetWidget extends ConsumerWidget {
+class TransferBottomSheetWidget extends ConsumerStatefulWidget {
   const TransferBottomSheetWidget({super.key});
 
-  // Sample beneficiaries data
-  static final List<dynamic> _sampleBeneficiaries = [
-    BeneficiaryModel(
-      id: '1',
-      name: 'Aliya Khan',
-      sub: 'Dukhan Bank',
-      accNumber: 'XXXX1827',
+  @override
+  ConsumerState<TransferBottomSheetWidget> createState() =>
+      _TransferBottomSheetWidgetState();
+}
+
+class _TransferBottomSheetWidgetState
+    extends ConsumerState<TransferBottomSheetWidget> {
+  final List<Beneficiary> _sampleBeneficiaries = [
+    Beneficiary(name: "Yasmin Noor", id: "XXXX8817", bank: "Dukhan Bank (QA)"),
+    Beneficiary(
+      name: "Sara Rahman",
+      id: "QRXXXXXXXXXXXXXX2029",
+      bank: "Attijari Bank",
+      localImage: "assets/images/sara.png",
+      isFavourite: true,
     ),
-    BeneficiaryModel(
-      id: '2',
-      name: 'Sara Rahman',
-      sub: 'Dukhan Bank',
-      accNumber: 'XXXX2345',
+    Beneficiary(name: "Aliya Khan", id: "XXXX1827", bank: "Dukhan Bank (QA)"),
+    const Beneficiary(
+      name: "Sangita Raman",
+      id: "XXXX8817",
+      bank: "Attijari Bank",
+      isFavourite: true,
     ),
-    BeneficiaryModel(
-      id: '3',
-      name: 'Yusuf Naser',
-      sub: 'Dukhan Bank',
-      accNumber: 'XXXX6789',
+    const Beneficiary(
+      name: "Yasmin Noor",
+      id: "XXXX8817",
+      bank: "Dukhan Bank (QA)",
     ),
-    BeneficiaryModel(
-      id: '4',
-      name: 'Ahmad Ali',
-      sub: 'Dukhan Bank',
-      accNumber: 'XXXX3456',
-    ),
-    BeneficiaryModel(
-      id: '5',
-      name: 'Fatima Hassan',
-      sub: 'Dukhan Bank',
-      accNumber: 'XXXX7890',
-    ),
-    BeneficiaryModel(
-      id: '6',
-      name: 'Omar Ibrahim',
-      sub: 'Dukhan Bank',
-      accNumber: 'XXXX4567',
-    ),
-    BeneficiaryModel(
-      id: '7',
-      name: 'Layla Mohamed',
-      sub: 'Dukhan Bank',
-      accNumber: 'XXXX8901',
+    const Beneficiary(
+      name: "Rashidullah Khan",
+      id: "XXXX8817",
+      bank: "Dukhan Bank (QA)",
+      localImage: "assets/images/sara.png",
     ),
   ];
 
+  void _toggleFavourite(int index) {
+    setState(() {
+      final old = _sampleBeneficiaries[index];
+      _sampleBeneficiaries[index] = Beneficiary(
+        name: old.name,
+        id: old.id,
+        bank: old.bank,
+        avatarUrl: old.avatarUrl,
+        localImage: old.localImage,
+        isFavourite: !(old.isFavourite ?? false),
+      );
+    });
+  }
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final step = ref.watch(contentStepProvider);
@@ -126,7 +132,7 @@ class TransferBottomSheetWidget extends ConsumerWidget {
                 beneficiariesCount: _sampleBeneficiaries.length,
                 contactsCount: 0, // Set contacts count to 0
               ),
-              SizedBox(height: screenHeight * 0.020), // Reduced spacing
+              SizedBox(height: screenHeight * 0.040), // Increased spacing
               //Display content based on selected filter
               Expanded(
                 child: Column(
@@ -136,9 +142,38 @@ class TransferBottomSheetWidget extends ConsumerWidget {
                         child: Column(
                           children: [
                             if (filter == 'Beneficiaries')
-                              Beneficiaries(
-                                display: _sampleBeneficiaries,
-                                iconSize: 18,
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: DefaultColors.grayE6,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: ListView.separated(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: _sampleBeneficiaries.length > 5
+                                      ? 5
+                                      : _sampleBeneficiaries.length,
+                                  separatorBuilder: (context, index) =>
+                                      const Divider(
+                                        height: 1,
+                                        color: DefaultColors.grayE6,
+                                      ),
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 12.0,
+                                      ),
+                                      child: BeneficiaryTile(
+                                        beneficiary:
+                                            _sampleBeneficiaries[index],
+                                        onToggleFavourite: () =>
+                                            _toggleFavourite(index),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             if (filter == 'Contacts') ...[
                               //Before pressing continue InitialContent is displayed

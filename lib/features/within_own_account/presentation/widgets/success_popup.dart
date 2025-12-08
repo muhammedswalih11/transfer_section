@@ -195,52 +195,6 @@ class TransferSuccessPopup extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // SvgPicture.asset(
-              //   'assets/images/Vector.svg',
-              //   width: 16,
-              //   color: DefaultColors.flatblue,
-              // ),
-              // TextButton(
-              //   onPressed: () {
-              //     showModalBottomSheet(
-              //       context: context,
-              //       isScrollControlled: true,
-              //       backgroundColor: Colors.transparent,
-              //       builder: (context) {
-              //         return Padding(
-              //           padding: EdgeInsets.only(
-              //             bottom: MediaQuery.of(context).viewInsets.bottom,
-              //           ),
-              //           child: ShareAsPopup(),
-              //         );
-              //       },
-              //     );
-              //   },
-              //   child: Text(
-              //     'Share Transfer Details',
-              //     style: TextStyle(color: DefaultColors.flatblue, fontSize: 18),
-              //   ),
-              // ),
-              // ShareActionRow(
-              //   text: 'Share as Pdf',
-              //   onTap: () async {
-              //     final pdfFile = await generateReceiptPdf(
-              //       headerTitle: "Transfer Receipt",
-              //       dateTime: _formattedDateTime(),
-              //       sections: [
-              //         PdfSection("From Account", data["fromAccount"]!),
-              //         PdfSection("To Account", data["toAccount"]!),
-              //         PdfSection("Amount", "${data["amount"]} QAR"),
-              //         PdfSection("Reference Number", data["reference"]!),
-              //         PdfSection("Remarks", data["remarks"] ?? "-"),
-              //       ],
-              //     );
-
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //       SnackBar(content: Text("PDF created: ${pdfFile.path}")),
-              //     );
-              //   },
-              // ),
               ShareActionRow(
                 text: 'Share as Pdf',
                 onTap: () {

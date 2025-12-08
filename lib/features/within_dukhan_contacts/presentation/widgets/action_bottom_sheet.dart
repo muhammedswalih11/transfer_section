@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/colors.dart';
 
 class ActionBottomSheet extends StatelessWidget {
-  ActionBottomSheet({super.key});
+  final bool isFavourite;
+  final VoidCallback onToggleFavourite;
+
+  const ActionBottomSheet({
+    super.key,
+    required this.isFavourite,
+    required this.onToggleFavourite,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +88,15 @@ class ActionBottomSheet extends StatelessWidget {
 
           _actionItem(
             context: context,
-            icon: Icons.star_border,
-            title: "Favourite",
-            subtitle: "Add as a favourite",
-            onTap: () {},
+            icon: isFavourite ? Icons.star : Icons.star_border,
+            title: isFavourite ? "Remove from Favourite" : "Favourite",
+            subtitle: isFavourite
+                ? "Remove from favourite list"
+                : "Add as a favourite",
+            onTap: () {
+              Navigator.pop(context);
+              onToggleFavourite();
+            },
           ),
 
           const SizedBox(height: 20),
