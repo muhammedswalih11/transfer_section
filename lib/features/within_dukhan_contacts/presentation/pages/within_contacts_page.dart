@@ -7,10 +7,10 @@ import 'package:transfer_section/features/within_dukhan/presentation/widgets/pur
 import 'package:transfer_section/features/within_dukhan_contacts/presentation/widgets/bottom_sheet.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/amount_filed.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/remarks_field.dart';
-import 'package:transfer_section/features/within_dukhan_contacts/data/contact_model.dart';
+import 'package:transfer_section/features/within_dukhan_contacts/presentation/data/contact_model.dart';
 
 import '../../../../core/utils/colors.dart';
-import '../../../within_own_account/presentation/providers/dropdown_provider.dart';
+import '../../../within_own_account/presentation/controllers/dropdown_provider.dart';
 import '../../../within_own_account/presentation/widgets/account_picker_sheet.dart';
 import '../../../within_own_account/presentation/widgets/info_note.dart';
 import '../../../within_own_account/presentation/widgets/limit_bottomsheet.dart';

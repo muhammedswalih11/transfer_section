@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:transfer_section/features/within_dukhan_contacts/data/beneficiary_model.dart';
+import 'package:transfer_section/features/within_dukhan_contacts/presentation/data/beneficiary_model.dart';
 import 'package:transfer_section/features/within_dukhan_contacts/presentation/widgets/beneficiaries_corrupted.dart';
 
 import '../../../../core/utils/colors.dart';
@@ -235,17 +236,20 @@ class BeneficiaryTile extends StatelessWidget {
   final Beneficiary beneficiary;
   final VoidCallback? onToggleFavourite;
   final bool showActionButton;
+  final VoidCallback? onTap;
 
   const BeneficiaryTile({
     super.key,
     required this.beneficiary,
     this.onToggleFavourite,
     this.showActionButton = true,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     /// Build avatar widget
     final Widget avatar;
@@ -297,10 +301,10 @@ class BeneficiaryTile extends StatelessWidget {
           backgroundColor: DefaultColors.blue03,
           child: Text(
             initials,
-            style: const TextStyle(
+            style: TextStyle(
               color: DefaultColors.black,
               fontWeight: FontWeight.w600,
-              fontSize: 16,
+              fontSize: screenWidth * 0.04,
             ),
           ),
         ),
@@ -308,84 +312,191 @@ class BeneficiaryTile extends StatelessWidget {
     }
 
     /// Return ListTile for ALL cases
-    return ListTile(
-      leading: Stack(
-        alignment: AlignmentGeometry.bottomCenter,
-        clipBehavior: Clip.none,
+    final textColor = beneficiary.isDisabled
+        ? DefaultColors.grayBase
+        : DefaultColors.black;
+
+    return Slidable(
+      enabled: showActionButton && !beneficiary.isDisabled,
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        extentRatio: 0.4,
         children: [
-          avatar,
-          if (beneficiary.isFavourite == true)
-            Positioned(
-              bottom: -10,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  // Background star (border)
-                  Icon(
-                    Icons.star,
-                    size: screenWidth * 0.076,
-                    color: DefaultColors.white,
-                  ),
-                  // Foreground star
-                  Icon(
-                    Icons.star,
-                    size: screenWidth * 0.06,
-                    color: DefaultColors.yellow_0,
-                  ),
-                ],
+          CustomSlidableAction(
+            onPressed: (_) {},
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.transparent,
+            padding: EdgeInsets.zero,
+            child: Container(
+              width: 1,
+              height: double.infinity,
+              color: DefaultColors.grayE6,
+            ),
+            autoClose: false,
+          ),
+          CustomSlidableAction(
+            onPressed: (context) {
+              if (onToggleFavourite != null) onToggleFavourite!();
+            },
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.transparent,
+            padding: EdgeInsets.zero,
+            child: Container(
+              width: screenWidth * 0.10,
+              height: screenWidth * 0.10,
+              decoration: BoxDecoration(
+                color: DefaultColors.blue04,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                beneficiary.isFavourite == true
+                    ? Icons.star
+                    : Icons.star_border,
+                color: DefaultColors.black,
+                size: screenWidth * 0.05,
               ),
             ),
-        ],
-      ),
-      title: Text(
-        beneficiary.name,
-        style: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          color: DefaultColors.black,
-        ),
-      ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            beneficiary.id,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: DefaultColors.grayBase,
-            ),
           ),
-          Text(
-            beneficiary.bank,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: DefaultColors.grayBase,
+          CustomSlidableAction(
+            onPressed: (context) {
+              // Delete action
+            },
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.transparent,
+            padding: EdgeInsets.zero,
+            child: Container(
+              width: screenWidth * 0.10,
+              height: screenWidth * 0.10,
+              decoration: BoxDecoration(
+                color: DefaultColors.redC2,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.delete_outline,
+                color: Colors.red,
+                size: screenWidth * 0.05,
+              ),
             ),
           ),
         ],
       ),
-      trailing: showActionButton
-          ? IconButton(
-              color: DefaultColors.grayTB.withAlpha(170),
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(24),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12.0),
+        child: ListTile(
+          onTap: beneficiary.isDisabled ? null : onTap,
+          leading: Opacity(
+            opacity: beneficiary.isDisabled ? 0.5 : 1.0,
+            child: Stack(
+              alignment: AlignmentGeometry.bottomCenter,
+              clipBehavior: Clip.none,
+              children: [
+                avatar,
+                if (beneficiary.isFavourite == true)
+                  Positioned(
+                    bottom: -10,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // Background star (border)
+                        Icon(
+                          Icons.star,
+                          size: screenWidth * 0.076,
+                          color: DefaultColors.white,
+                        ),
+                        // Foreground star
+                        Icon(
+                          Icons.star,
+                          size: screenWidth * 0.06,
+                          color: DefaultColors.yellow_0,
+                        ),
+                      ],
                     ),
                   ),
-                  builder: (_) => ActionBottomSheet(
-                    isFavourite: beneficiary.isFavourite ?? false,
-                    onToggleFavourite: onToggleFavourite ?? () {},
+              ],
+            ),
+          ),
+          title: Text(
+            beneficiary.name,
+            style: TextStyle(
+              fontSize: screenWidth * 0.035,
+              fontWeight: FontWeight.w600,
+              color: textColor,
+            ),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                beneficiary.id,
+                style: TextStyle(
+                  fontSize: screenWidth * 0.030,
+                  fontWeight: FontWeight.w500,
+                  color: DefaultColors.grayBase,
+                ),
+              ),
+              Text(
+                beneficiary.bank,
+                style: TextStyle(
+                  fontSize: screenWidth * 0.026,
+                  fontWeight: FontWeight.w500,
+                  color: DefaultColors.grayBase,
+                ),
+              ),
+            ],
+          ),
+          contentPadding: EdgeInsets.only(
+            left: screenWidth * 0.036,
+            right: showActionButton ? 0 : screenWidth * 0.036,
+          ),
+          trailing: beneficiary.statusText != null
+              ? Padding(
+                  padding: EdgeInsets.only(
+                    right: screenWidth * 0.036,
+                    top: screenHeight * 0.012,
                   ),
-                );
-              },
-              icon: Icon(Icons.more_vert),
-            )
-          : null,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Active in',
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.028,
+                          fontWeight: FontWeight.w500,
+                          color: DefaultColors.grayBase,
+                        ),
+                      ),
+                      Text(
+                        beneficiary.statusText!,
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.028,
+                          fontWeight: FontWeight.w500,
+                          color: DefaultColors.grayBase,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : (showActionButton
+                    ? IconButton(
+                        color: DefaultColors.grayTB.withAlpha(170),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(24),
+                              ),
+                            ),
+                            builder: (_) => ActionBottomSheet(
+                              isFavourite: beneficiary.isFavourite ?? false,
+                              onToggleFavourite: onToggleFavourite ?? () {},
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.more_vert),
+                      )
+                    : null),
+        ),
+      ),
     );
   }
 }

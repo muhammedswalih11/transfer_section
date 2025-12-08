@@ -46,40 +46,40 @@ final selectedSubPurposeProvider = StateProvider<String?>((ref) => null);
 
 final amountProvider = StateProvider<String>((ref) => "");
 
-final beneficiariesProvider = Provider<List<BeneficiaryModel>>(
-  (ref) => [
-    BeneficiaryModel(
-      id: 'b1',
-      name: 'Aliya Khan',
-      sub: 'Dukhan Bank (QA)',
-      accNumber: 'XXXX1827',
-    ),
-    BeneficiaryModel(
-      id: 'b2',
-      name: 'Sangita Raman',
-      sub: 'Dukhan Bank (QA)',
-      accNumber: 'XXXX5432',
-    ),
-    BeneficiaryModel(
-      id: 'b3',
-      name: 'Yasmin Noor',
-      sub: 'Western Union (Cash)',
-      accNumber: 'XXXX9876',
-    ),
-  ],
-);
+// final beneficiariesProvider = Provider<List<BeneficiaryModel>>(
+//   (ref) => [
+//     BeneficiaryModel(
+//       id: 'b1',
+//       name: 'Aliya Khan',
+//       sub: 'Dukhan Bank (QA)',
+//       accNumber: 'XXXX1827',
+//     ),
+//     BeneficiaryModel(
+//       id: 'b2',
+//       name: 'Sangita Raman',
+//       sub: 'Dukhan Bank (QA)',
+//       accNumber: 'XXXX5432',
+//     ),
+//     BeneficiaryModel(
+//       id: 'b3',
+//       name: 'Yasmin Noor',
+//       sub: 'Western Union (Cash)',
+//       accNumber: 'XXXX9876',
+//     ),
+//   ],
+// );
 
-final beneficiariesSearchProvider =
-    StateNotifierProvider<
-      SearchNotifier<BeneficiaryModel>,
-      List<BeneficiaryModel>
-    >((ref) {
-      final list = ref.read(beneficiariesProvider);
-      return SearchNotifier<BeneficiaryModel>(
-        list,
-        (b) => '${b.name} ${b.sub}',
-      );
-    });
+// final beneficiariesSearchProvider =
+//     StateNotifierProvider<
+//       SearchNotifier<BeneficiaryModel>,
+//       List<BeneficiaryModel>
+//     >((ref) {
+//       final list = ref.read(beneficiariesProvider);
+//       return SearchNotifier<BeneficiaryModel>(
+//         list,
+//         (b) => '${b.name} ${b.sub}',
+//       );
+//     });
 
 final isOwnAccountTransferEnabledProvider = Provider<bool>((ref) {
   final fromAccount = ref.watch(selectedFromAccountProvider);

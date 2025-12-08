@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../within_own_account/presentation/providers/dropdown_provider.dart';
-import '../../data/contact_model.dart';
+import '../../../within_own_account/presentation/controllers/dropdown_provider.dart';
+import '../data/contact_model.dart';
 
 final accountSelectionProvider = StateProvider<String?>((ref) => 'savings');
 

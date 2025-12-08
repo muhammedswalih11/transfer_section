@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/widgets/beneficiary_contact_sheet.dart';
+import 'package:transfer_section/features/within_dukhan/presentation/widgets/beneficiary_dukhan.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/widgets/purpose_bottom_sheet.dart';
 import 'package:transfer_section/features/within_dukhan/presentation/widgets/purpose_of_transfer.dart';
 
@@ -8,7 +9,7 @@ import '../../../../core/utils/colors.dart';
 
 import '../../../within_dukhan_contacts/presentation/controllers/account_selection_provider.dart';
 import '../../../within_own_account/presentation/widgets/confirm_page.dart';
-import '../../../within_own_account/presentation/providers/dropdown_provider.dart';
+import '../../../within_own_account/presentation/controllers/dropdown_provider.dart';
 import '../../../within_own_account/presentation/widgets/account_picker_sheet.dart';
 import '../../../within_own_account/presentation/widgets/amount_filed.dart';
 import '../../../within_own_account/presentation/widgets/info_note.dart';
@@ -158,19 +159,9 @@ class WithinDukhanPage extends ConsumerWidget {
                               ),
                             ),
                             builder: (_) {
-                              return BeneficiaryBottomSheetContent(
-                                mq: mediaQuery,
-                              );
+                              return BeneficiaryDukhan();
                             },
                           );
-
-                          if (result != null) {
-                            ref.read(toBenificiaryProvider.notifier).state = {
-                              'id': result.name,
-                              'title': result.name,
-                              'subtitle': 'XXXX1827',
-                            };
-                          }
                         },
                       ),
                       SizedBox(height: screenHeight * 0.032),

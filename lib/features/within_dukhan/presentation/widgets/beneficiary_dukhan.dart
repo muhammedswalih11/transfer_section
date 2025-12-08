@@ -1,45 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:transfer_section/core/utils/beneficiary.dart';
-import 'package:transfer_section/core/utils/colors.dart';
-import 'package:transfer_section/features/within_dukhan_contacts/presentation/widgets/beneficiaries.dart';
-import 'package:transfer_section/features/within_dukhan/presentation/datas/beneficiay_model.dart';
+import 'package:transfer_section/features/within_own_account/presentation/controllers/dropdown_provider.dart';
 
-import '../data/beneficiary_model.dart';
-import '../controllers/account_selection_provider.dart';
-import 'account_selection_content.dart';
-import 'contacts_screen.dart';
-import 'deactivate_visibilty_state_screen.dart';
-import 'enable_visibility_state_screen.dart';
-import 'initial_content.dart';
-import 'search_bar_section.dart';
-import 'selection_section.dart';
+import '../../../../core/utils/colors.dart';
+import '../../../within_dukhan_contacts/presentation/controllers/account_selection_provider.dart';
+import '../../../within_dukhan_contacts/presentation/data/beneficiary_model.dart';
+import '../../../within_dukhan_contacts/presentation/widgets/beneficiaries.dart';
+import '../../../within_dukhan_contacts/presentation/widgets/search_bar_section.dart';
+import '../../../within_dukhan_contacts/presentation/widgets/selection_section.dart';
 
-class TransferBottomSheetWidget extends ConsumerStatefulWidget {
-  const TransferBottomSheetWidget({super.key});
+class BeneficiaryDukhan extends ConsumerStatefulWidget {
+  const BeneficiaryDukhan({super.key});
 
   @override
-  ConsumerState<TransferBottomSheetWidget> createState() =>
+  ConsumerState<BeneficiaryDukhan> createState() =>
       _TransferBottomSheetWidgetState();
 }
 
-class _TransferBottomSheetWidgetState
-    extends ConsumerState<TransferBottomSheetWidget> {
+class _TransferBottomSheetWidgetState extends ConsumerState<BeneficiaryDukhan> {
   final List<Beneficiary> _sampleBeneficiaries = [
-    Beneficiary(name: "Yasmin Noor", id: "XXXX8817", bank: "Dukhan Bank (QA)"),
+    Beneficiary(
+      name: "Yasmin Noor",
+      id: "XXXX8817",
+      bank: "Dukhan Bank (QA)",
+      isDisabled: true,
+      statusText: "1 hr 55 min",
+    ),
     Beneficiary(
       name: "Sara Rahman",
       id: "XXXXXX2029",
       bank: "Attijari Bank",
       localImage: "assets/images/sara.png",
-      isFavourite: true,
     ),
     Beneficiary(name: "Aliya Khan", id: "XXXX1827", bank: "Dukhan Bank (QA)"),
     const Beneficiary(
       name: "Sangita Raman",
       id: "XXXX8817",
       bank: "Attijari Bank",
-      isFavourite: true,
     ),
     const Beneficiary(
       name: "Yasmin Noor",
@@ -161,16 +158,22 @@ class _TransferBottomSheetWidgetState
                                         color: DefaultColors.grayE6,
                                       ),
                                   itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 12.0,
-                                      ),
-                                      child: BeneficiaryTile(
-                                        beneficiary:
-                                            _sampleBeneficiaries[index],
-                                        onToggleFavourite: () =>
-                                            _toggleFavourite(index),
-                                      ),
+                                    return BeneficiaryTile(
+                                      beneficiary: _sampleBeneficiaries[index],
+                                      showActionButton: false,
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                        ref
+                                            .read(
+                                              toBenificiaryProvider.notifier,
+                                            )
+                                            .state = {
+                                          'title':
+                                              _sampleBeneficiaries[index].name,
+                                          'accnumber':
+                                              _sampleBeneficiaries[index].id,
+                                        };
+                                      },
                                     );
                                   },
                                 ),
@@ -178,13 +181,28 @@ class _TransferBottomSheetWidgetState
                             if (filter == 'Contacts') ...[
                               //Before pressing continue InitialContent is displayed
                               //After pressing continue hides InitialContent
-                              if (step == 0) const InitialContent(),
-                              if (step == 1) const AccountSelectionContent(),
-                              if (step == 2)
-                                const DeactivateVisibiltyStateScreen(),
-                              if (step == 3) const ContactsScreen(),
-                              if (step == 4)
-                                const EnableVisibilityStateScreen(),
+                              // if (step == 0) const InitialContent(),
+                              // if (step == 1) const AccountSelectionContent(),
+                              // if (step == 2)
+                              //   const DeactivateVisibiltyStateScreen(),
+                              // if (step == 3) const ContactsScreen(),
+                              // if (step == 4)
+                              //   const EnableVisibilityStateScreen(),
+                              Center(
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    top: screenHeight * 0.05,
+                                  ),
+                                  child: Text(
+                                    "No contacts available currently",
+                                    style: TextStyle(
+                                      fontSize: screenWidth * 0.04,
+                                      fontWeight: FontWeight.w500,
+                                      color: DefaultColors.grayBase,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ],
                         ),

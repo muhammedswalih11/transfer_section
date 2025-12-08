@@ -1,4 +1,4 @@
-import '../../data/contact_model.dart';
+import '../data/contact_model.dart';
 
 final List<ContactModel> contacts = [
   ContactModel(

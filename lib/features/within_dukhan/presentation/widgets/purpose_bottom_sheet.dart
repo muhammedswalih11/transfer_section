@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transfer_section/core/utils/colors.dart';
 
-import '../../../within_own_account/presentation/providers/dropdown_provider.dart';
+import '../../../within_own_account/presentation/controllers/dropdown_provider.dart';
 
 // class PurposeBottomSheet extends StatefulWidget {
 //   final Function(Map<String, String>) onSelected;

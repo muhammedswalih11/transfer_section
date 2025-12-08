@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:transfer_section/features/within_own_account/presentation/widgets/custom_input_field.dart';
 import '../../../../core/utils/colors.dart';
-import '../providers/dropdown_provider.dart';
+import '../controllers/dropdown_provider.dart';
 import 'currency_picker_sheet.dart';
 
 // class AmountFiled extends ConsumerWidget {

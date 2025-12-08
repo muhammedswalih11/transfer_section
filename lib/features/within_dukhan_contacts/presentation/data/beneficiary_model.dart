@@ -5,6 +5,8 @@ class Beneficiary {
   final String? avatarUrl; // optional network image
   final String? localImage; // optional local asset image path
   final bool? isFavourite;
+  final bool isDisabled;
+  final String? statusText;
 
   const Beneficiary({
     required this.name,
@@ -13,5 +15,7 @@ class Beneficiary {
     this.avatarUrl,
     this.localImage,
     this.isFavourite = false,
+    this.isDisabled = false,
+    this.statusText,
   });
 }

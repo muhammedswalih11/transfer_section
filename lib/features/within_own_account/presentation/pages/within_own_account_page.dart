@@ -8,7 +8,7 @@ import 'package:transfer_section/features/within_own_account/presentation/widget
     show LimitsBottomSheet;
 import 'package:transfer_section/features/within_own_account/presentation/widgets/limit_info-tile.dart';
 import '../../../../core/utils/colors.dart';
-import '../providers/dropdown_provider.dart';
+import '../controllers/dropdown_provider.dart';
 import '../widgets/select_account_field.dart';
 import '../widgets/remarks_field.dart';
 import '../widgets/terms_and_conditions_checkbox.dart';

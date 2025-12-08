@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/utils/colors.dart';
-import '../providers/dropdown_provider.dart';
+import '../controllers/dropdown_provider.dart';
 
 // class CurrencyPickerSheet extends ConsumerWidget {
 //   final String? selectedCurrency;

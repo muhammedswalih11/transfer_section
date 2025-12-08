@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/colors.dart';
-import '../providers/dropdown_provider.dart';
+import '../controllers/dropdown_provider.dart';
 
 class TermsAndConditionsCheckbox extends ConsumerWidget {
   const TermsAndConditionsCheckbox({super.key});
